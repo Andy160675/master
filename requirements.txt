@@ -1,0 +1,6 @@
+# No external dependencies required - uses only Python standard library
+# 
+# Optional dependencies for enhanced development experience:
+# pytest>=6.0.0  # For enhanced testing capabilities
+# black>=22.0.0  # For code formatting
+# flake8>=4.0.0  # For linting
