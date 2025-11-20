@@ -23,7 +23,7 @@ Single-node, offline-first governance harness (PC4) proving:
 | Readiness / Review | scripts/agent_readiness.py, scripts/review_property.py |
 | Tests | tests/test_tracks.py (track separation), integration_verify.sh (10 checks) |
 | Research Intake | research/nate_agents_transcript.txt, NATE_AGENT_TRIANGLE.md, anthropic_security.md, google_a2a.md, video_summary.md |
-| Ledger | Governance/Logs/audit-insider.jsonl, audit-stable.jsonl, promotions.jsonl |
+| Ledger | Governance/Logs/audit_chain.jsonl (append-only) |
 | Backup Protocol | sovereign-backup.ps1 (mirrors to E:/ F:/) |
 
 ## Boot & Verification Sequence
@@ -38,12 +38,12 @@ Single-node, offline-first governance harness (PC4) proving:
 
 ## Integrity Anchors
 - Git Tag: `node0-backup-20251120`
-- Ledger Hash (SHA256 of audit-stable.jsonl): 9f1b34a2b3fd73c530ecf6c8b7e4d5e20e06d0e6fac25570b8aaaeec8477ee3a
+- Ledger Hash (SHA256 of audit_chain.jsonl): <INSERT_HASH>
 - External mirrors: E:\Sovereign_Backups, F:\Sovereign_Backups
 
 ## Integrity Anchor
-- Source log: `Governance/Logs/audit-stable.jsonl`
-- SHA256: `9f1b34a2b3fd73c530ecf6c8b7e4d5e20e06d0e6fac25570b8aaaeec8477ee3a`
+- Source log: `Governance/Logs/audit_chain.jsonl`
+- SHA256: `<PASTE_HASH_HERE>`
 - Date: 2025-11-20 (UTC)
 
 ## Demonstrated Governance Patterns
