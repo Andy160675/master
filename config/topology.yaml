@@ -1,0 +1,69 @@
+nodes:
+  - id: node0
+    role: sovereign
+  - id: node1
+    role: satellite
+  - id: node2
+    role: satellite
+
+domains:
+  - id: evidence
+  - id: property
+  - id: ops
+
+pods:
+  - id: node0_evidence
+    node: node0
+    domain: evidence
+  - id: node0_property
+    node: node0
+    domain: property
+  - id: node0_ops
+    node: node0
+    domain: ops
+
+  - id: node1_evidence
+    node: node1
+    domain: evidence
+  - id: node1_property
+    node: node1
+    domain: property
+  - id: node1_ops
+    node: node1
+    domain: ops
+
+  - id: node2_evidence
+    node: node2
+    domain: evidence
+  - id: node2_property
+    node: node2
+    domain: property
+  - id: node2_ops
+    node: node2
+    domain: ops
+
+edges:
+  # Row moves (same node, different domain)
+  - from: node0_property
+    to: node0_evidence
+  - from: node0_property
+    to: node0_ops
+  - from: node1_property
+    to: node1_evidence
+  - from: node1_property
+    to: node1_ops
+  - from: node2_property
+    to: node2_evidence
+  - from: node2_property
+    to: node2_ops
+
+  # Column moves (same domain, different node)
+  - from: node0_property
+    to: node1_property
+  - from: node0_property
+    to: node2_property
+  - from: node1_property
+    to: node2_property
+
+  # NOTE: Current edges are minimal; enumeration of 3-step paths may be sparse
+  # Additional reverse / chaining edges can be added in future expansions.
