@@ -1,0 +1,37 @@
+name: Sovereign Governance Gate
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  sovereign-integration-test:
+    name: Full System Orchestration
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Jurisdiction
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install Docker Compose
+      run: |
+        sudo curl -L "https://github.com/docker/compose/releases/download/v2.20.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+        sudo chmod +x /usr/local/bin/docker-compose
+        docker-compose --version
+
+    - name: Set Executable Permissions
+      run: chmod +x scripts/orchestrate_system.sh
+
+    - name: Run Sovereign Orchestration
+      env:
+        EVIDENCE_TRACK: stable
+        PROPERTY_TRACK: insider
+        DATA_DIR: ./data_ci_temp
+      run: ./scripts/orchestrate_system.sh
