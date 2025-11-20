@@ -38,8 +38,13 @@ Single-node, offline-first governance harness (PC4) proving:
 
 ## Integrity Anchors
 - Git Tag: `node0-backup-20251120`
-- Ledger Hash (SHA256 of audit-stable.jsonl): <INSERT_HASH>
+- Ledger Hash (SHA256 of audit-stable.jsonl): 9f1b34a2b3fd73c530ecf6c8b7e4d5e20e06d0e6fac25570b8aaaeec8477ee3a
 - External mirrors: E:\Sovereign_Backups, F:\Sovereign_Backups
+
+## Integrity Anchor
+- Source log: `Governance/Logs/audit-stable.jsonl`
+- SHA256: `9f1b34a2b3fd73c530ecf6c8b7e4d5e20e06d0e6fac25570b8aaaeec8477ee3a`
+- Date: 2025-11-20 (UTC)
 
 ## Demonstrated Governance Patterns
 - Track separation: stable writes only to `_verified`, insider to `_drafts`
