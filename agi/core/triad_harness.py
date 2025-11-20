@@ -4,28 +4,23 @@ from pathlib import Path
 from typing import Dict, Any, Literal, Optional
 import time, json, hashlib, uuid
 
-# Placeholder role modules; ensure these exist or adapt accordingly
-from .roles import interpreter  # interpreter added v0.1a
-# Assume specialist.py, validator.py, arbiter.py exist in .roles
+from .roles import interpreter
 try:
     from .roles import specialist, validator, arbiter
 except ImportError:
-    # Fallback stubs if not present yet
     class _Stub:
         @staticmethod
-        def run_specialist(q, c): return {"draft": f"DRAFT:{q}"}
+        def run_specialist(q, c): return {"answer": f"DRAFT:{q}"}
         @staticmethod
-        def run_validator(d, c): return {"validated": True, "draft": d.get("draft")}
+        def run_validator(d, c): return {"validated": True, "answer": d.get("answer")}
         @staticmethod
-        def run_arbiter(d, v, c): return {"final_answer": v.get("draft")}
+        def run_arbiter(d, v, c): return {"final_answer": v.get("answer")}
     specialist = _Stub
     validator = _Stub
     arbiter = _Stub
 
 from .assistant_channel import get_assistant_system_prompt
 from .receipt import SovereignReceipt, write_receipt_json, store_answer_and_receipt
-
-# Drift detector (stub) - replace with real implementation if exists
 try:
     from .drift_detector import detect_drift
 except ImportError:
@@ -46,7 +41,7 @@ def run_triad(question: str, mode: ResponseMode = "raw", parent_receipt_id: Opti
     spec_out = specialist.run_specialist(question, context)
     val_out = validator.run_validator(spec_out, context)
     arb_out = arbiter.run_arbiter(spec_out, val_out, context)
-    raw_answer = arb_out.get("final_answer", "")
+    raw_answer = arb_out.get("final_answer") or spec_out.get("answer") or ""
 
     explained_answer: Optional[str] = None
     interpreter_prompt_hash: Optional[str] = None
