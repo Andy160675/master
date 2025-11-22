@@ -1,0 +1,50 @@
+name: Dependency Manifest
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - '**/*.csproj'
+      - '**/requirements*.txt'
+      - '**/package.json'
+      - '**/package-lock.json'
+      - '**/yarn.lock'
+      - '**/pnpm-lock.yaml'
+      - 'scripts/Enumerate-Csproj.ps1'
+      - 'scripts/Generate-DependencyManifest.ps1'
+      - 'scripts/Sign-DependencyManifest.ps1'
+  workflow_dispatch:
+
+jobs:
+  build-manifest:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run Enumerate-Csproj
+        shell: pwsh
+        run: |
+          ./scripts/Enumerate-Csproj.ps1 -Root "$PWD"
+
+      - name: Generate Dependency Manifest
+        shell: pwsh
+        run: |
+          ./scripts/Generate-DependencyManifest.ps1 -Root "$PWD" -Output "dependency_manifest.json"
+
+      - name: Sign Dependency Manifest
+        shell: pwsh
+        env:
+          DEP_MANIFEST_PATH: dependency_manifest.json
+          SIGNING_KEY: ${{ secrets.DEP_MANIFEST_SIGNING_KEY }}
+        run: |
+          ./scripts/Sign-DependencyManifest.ps1 -ManifestPath "$env:DEP_MANIFEST_PATH" -OutJson "dependency_manifest.signature.json"
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dependency-manifest
+          path: |
+            dependency_manifest.json
+            dependency_manifest.signature.json
