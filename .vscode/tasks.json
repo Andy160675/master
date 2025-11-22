@@ -3,1450 +3,1542 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Sovereign: Discovery Repo Remotes",
-      "type": "shell",
-      "command": "powershell",
-      "args": ["-NoProfile","-ExecutionPolicy","Bypass","-File","${workspaceFolder}/scripts/Discovery-RepoRemotes.ps1","-Root","C:/Users/andyj","-Repos","source/repos/PrecisePointway/master","source/repos/Blade2AI"],
-      "presentation": {"reveal": "always", "panel": "shared"}
-    },
-    {
-      "label": "Sovereign: Discovery Solutions",
-      "type": "shell",
-      "command": "powershell",
-      "args": ["-NoProfile","-ExecutionPolicy","Bypass","-File","${workspaceFolder}/scripts/Discovery-Solutions.ps1","-Root","C:/Users/andyj"],
-      "presentation": {"reveal": "always", "panel": "shared"}
-    },
-    {
-      "label": "Sovereign: Bootstrap IDE",
-      "type": "shell",
-      "command": "powershell",
-      "args": ["-NoProfile","-ExecutionPolicy","Bypass","-File","${workspaceFolder}/scripts/Bootstrap-All.ps1","-Root","C:/Users/andyj","-Repos","source/repos/PrecisePointway/master","source/repos/Blade2AI","-Org","PrecisePointway"],
-      "presentation": {"reveal": "always", "panel": "shared"}
-    },
-    {
-      "label": "Sovereign: Healthcheck",
-      "type": "shell",
-      "command": "powershell",
-      "args": ["-NoProfile","-ExecutionPolicy","Bypass","-File","${workspaceFolder}/scripts/Healthcheck.ps1"],
-      "presentation": {"reveal": "always", "panel": "shared"}
-    },
-    {
-      "label": "Sovereign: Ledger Audit",
-      "type": "shell",
-      "command": "powershell",
-      "args": ["-NoProfile","-ExecutionPolicy","Bypass","-File","${workspaceFolder}/scripts/Ledger-Audit.ps1"],
-      "presentation": {"reveal": "always", "panel": "shared"}
-    },
-    {
-      "label": "Sovereign: ALL Bootstrap Stack",
-      "dependsOn": [
-        "Sovereign: Discovery Repo Remotes",
-        "Sovereign: Discovery Solutions",
-        "Sovereign: Bootstrap IDE",
-        "Sovereign: Healthcheck",
-        "Sovereign: Ledger Audit"
-      ],
-      "dependsOrder": "sequence"
-    },
-    {
-      "label": "Collab: Start (Pull + Open + Live Share)",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/scripts/Start-Collab.ps1",
-        "-WorkspacePath",
-        "${workspaceFolder}",
-        "-AutoLiveShare"
-      ],
-      "problemMatcher": []
-    },
-    {
-      "label": "Collab: End (Commit + Push)",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/scripts/End-Collab.ps1",
-        "-WorkspacePath",
-        "${workspaceFolder}",
-        "-Message",
-        "${input:commitMessage}"
-      ]
-    },
-    {
-      "label": "LiveShare: Start Host Session (Enhanced with Kindness)",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/scripts/Start-LiveShare-Host.ps1",
-        "-WorkspacePath",
-        "${workspaceFolder}",
-        "-AutoNotify",
-        "-SolutionFile",
-        "${workspaceFolder}/PrecisePointway.sln",
-        "-AutoDiscover",
-        "-DetailedMetrics"
-      ],
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared",
-        "showReuseMessage": true
-      },
-      "problemMatcher": [],
-      "runOptions": {
-        "instanceLimit": 1
-      }
-    },
-    {
-      "label": "LiveShare: Start Host Session (Basic)",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/scripts/Start-LiveShare-Host.ps1",
-        "-WorkspacePath",
-        "${workspaceFolder}",
-        "-SolutionFile",
-        "${workspaceFolder}/PrecisePointway.sln"
-      ],
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared",
-        "showReuseMessage": true
-      },
-      "problemMatcher": [],
-      "runOptions": {
-        "instanceLimit": 1
-      }
-    },
-    {
-      "label": "LiveShare: Join Session (with Kindness)",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/scripts/Join-LiveShare-Guest.ps1",
-        "-WorkspacePath",
-        "${workspaceFolder}",
-        "-AutoOpen"
-      ],
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared"
-      },
-      "problemMatcher": []
-    },
-    {
-      "label": "LiveShare: Quick Join (Read from NAS)",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/scripts/LiveShare-QuickJoin.ps1",
-        "-NasRoot",
-        "\\\\dxp4800plus-67ba\\ops"
-      ],
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared"
-      },
-      "problemMatcher": []
-    },
-    {
-      "label": "LiveShare: Check Session Status",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/scripts/LiveShare-Status.ps1",
-        "-NasRoot",
-        "\\\\dxp4800plus-67ba\\ops"
-      ],
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared"
-      },
-      "problemMatcher": []
-    },
-    {
-      "label": "LiveShare: Test Network Optimization",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/scripts/Test-LiveShare-Optimization.ps1",
-        "-AutoDiscover",
-        "-ShowDetailedMetrics",
-        "-PingCount",
-        "8"
-      ],
-      "group": "test",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared"
-      },
-      "problemMatcher": []
-    },
-    {
-      "label": "LiveShare: Test Specific PCs",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/scripts/Test-LiveShare-Optimization.ps1",
-        "-TargetPCs",
-        "${input:targetPCs}",
-        "-ShowDetailedMetrics"
-      ],
-      "group": "test",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared"
-      },
-      "problemMatcher": []
-    },
-    {
-      "label": "Fleet: Bootstrap All PCs",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/scripts/FleetBootstrap.ps1",
-        "-RunNow"
-      ],
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared"
-      },
-      "problemMatcher": []
-    },
-    {
-      "label": "Fleet: Deploy LiveShare Setup (Full Optimization with Kindness)",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/scripts/Deploy-LiveShare-Fleet.ps1",
-        "-InstallLiveShare",
-        "-SetupTasks",
-        "-OptimizeLAN"
-      ]
-    },
-    {
-      "label": "Fleet: Deploy to Specific PCs",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/scripts/Deploy-LiveShare-Fleet.ps1",
-        "-Targets",
-        "${input:targetPCs}",
-        "-InstallLiveShare",
-        "-SetupTasks",
-        "-OptimizeLAN"
-      ],
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared"
-      },
-      "problemMatcher": []
-    },
-    {
-      "label": "Git: Pull",
-      "type": "shell",
-      "command": "git",
-      "args": ["pull"],
-      "problemMatcher": []
-    },
-    {
-      "label": "Git: Push",
-      "type": "shell",
-      "command": "git",
-      "args": ["push"],
-      "problemMatcher": []
-    },
-    {
-      "label": "Build: C++14 Debug (with Care)",
-      "type": "shell",
-      "command": "msbuild",
-      "args": [
-        "${workspaceFolder}/PrecisePointway.sln",
-        "/p:Configuration=Debug",
-        "/p:Platform=x64"
-      ],
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      },
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared"
-      },
-      "problemMatcher": "$msCompile"
-    },
-    {
-      "label": "Build: C++14 Release (with Excellence)",
-      "type": "shell",
-      "command": "msbuild",
-      "args": [
-        "${workspaceFolder}/PrecisePointway.sln",
-        "/p:Configuration=Release",
-        "/p:Platform=x64"
-      ],
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared"
-      },
-      "problemMatcher": "$msCompile"
-    },
-    {
-      "label": "LiveShare: Start Behavioral OS Host",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/scripts/Start-BehavioralOS-Host.ps1",
-        "-EnableBehavioralOS",
-        "-EnableCAI",
-        "-AutoDiscover"
-      ],
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared"
-      }
-    },
-    {
-      "label": "LiveShare: Test Behavioral OS Network",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/scripts/Test-BehavioralOS-Network.ps1",
-        "-AutoDiscover",
-        "-ShowDetailedMetrics"
-      ],
-      "group": "test",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared"
-      },
-      "problemMatcher": []
-    },
-    {
-      "label": "BigCodex: Generate Fact Card",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/scripts/BigCodex-FactCard.ps1",
-        "-FleetShare",
-        "-ValidateEvidence"
-      ],
-      "group": "codex",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": true,
-        "panel": "shared"
-      }
-    },
-    {
-      "label": "BigCodex: Generate Timeline",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/scripts/BigCodex-Timeline.ps1",
-        "-FleetShare"
-      ],
-      "group": "codex"
-    },
-    {
-      "label": "BigCodex: Evidence Validation",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/scripts/BigCodex-Validate.ps1",
-        "-ComprehensiveCheck"
-      ],
-      "group": "codex"
-    },
-    {
-      "label": "Fleet: Deploy BigCodex to All PCs",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/scripts/Deploy-BigCodex-Fleet.ps1",
-        "-InstallCodex",
-        "-SyncEvidence"
-      ],
-      "group": "deployment"
-    },
-    {
-      "label": "Fleet: Optimize with Mistral AI",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/scripts/Optimize-Fleet-Mistral.ps1",
-        "-AnalyzeNetwork",
-        "-OptimizeConfiguration",
-        "-GenerateRecommendations"
-      ],
-      "group": "optimization"
-    },
-    {
-      "label": "Elite Search: Comprehensive Analysis",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/scripts/Elite-Search.ps1",
-        "-Scope",
-        "Comprehensive",
-        "-FleetShare",
-        "-GenerateFactCard",
-        "-ApplyTruthFilter"
-      ],
-      "group": "search",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": true,
-        "panel": "new"
-      },
-      "problemMatcher": []
-    },
-    {
-      "label": "Elite Search: Local Workspace",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/scripts/Elite-Search.ps1",
-        "-Scope",
-        "Local",
-        "-SearchQuery",
-        "${input:searchQuery}"
-      ],
-      "group": "search",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": true,
-        "panel": "shared"
-      }
-    },
-    {
-      "label": "Elite Search: Fleet Analysis",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/scripts/Elite-Search.ps1",
-        "-Scope",
-        "Fleet",
-        "-FleetShare",
-        "-SearchQuery",
-        "${input:searchQuery}"
-      ],
-      "group": "search",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": true,
-        "panel": "shared"
-      }
-    },
-    {
-      "label": "Elite Search: Spiritual Wisdom",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/scripts/Elite-Search.ps1",
-        "-Scope",
-        "Spiritual",
-        "-SearchQuery",
-        "${input:searchQuery}"
-      ],
-      "group": "search",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": true,
-        "panel": "shared"
-      }
-    },
-    {
-      "label": "Precise Pointway: Obama-Robinson Investigation",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/scripts/Execute-PrecisePointway-Search.ps1",
-        "-FullInvestigation",
-        "-GenerateFactCard",
-        "-FleetShare"
-      ],
-      "group": "investigation",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": true,
-        "panel": "new"
-      },
-      "problemMatcher": []
-    },
-    {
-      "label": "Precise Pointway: Focused Analysis",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/scripts/Execute-PrecisePointway-Search.ps1",
-        "-FleetShare"
-      ],
-      "group": "investigation",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": true,
-        "panel": "shared"
-      }
-    },
-    {
-      "label": "Analytics: Fleet Dashboard (Real-Time Intelligence)",
-      "type": "shell",
-      "command": "powershell",
-      "args": ["-File", "scripts/Analytics-FleetDashboard.ps1"],
-      "problemMatcher": []
-    },
-    {
-      "label": "Analytics: Live Monitoring",
-      "type": "shell",
-      "command": "powershell",
-      "args": ["-File", "scripts/Analytics-LiveMonitoring.ps1"],
-      "problemMatcher": []
-    },
-    {
-      "label": "P0 Intake (KISS)",
-      "type": "shell",
-      "command": "echo Intake raw data from DATA/_raw/ (KISS mode)",
-      "detail": "Open DATA/_raw/ and begin intake."
-    },
-    {
-      "label": "P1 Compare",
-      "type": "shell",
-      "command": "python tools/index_and_dedupe.py --sources \"DATA/_raw,notes,docs,prompts\"",
-      "detail": "Compare local ideas, draft SITREP, continue with P2 Reporting."
-    },
-    {
-      "label": "P2 Report",
-      "type": "shell",
-      "command": "echo Copy first 25 rows of DATA/_work/index.csv to DATA/_report/SITREP.md",
-      "detail": "Prepare and copy SITREP report."
-    },
-    {
-      "label": "LM Studio",
-      "type": "shell",
-      "command": "echo Open prompts/lm_codex.txt in LM Studio for feedback.",
-      "detail": "Open prompt for LM Studio feedback."
-    },
-    {
-      "label": "🔒 Protocol 5.3: Emergency Security Lock",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/scripts/Protocol-5-3-SecurityLock.ps1",
-        "-EmergencyLock",
-        "-ScanAndSecure",
-        "-ImplementBoardwalkProtocol"
-      ],
-      "group": "security",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": true,
-        "panel": "new"
-      },
-      "problemMatcher": []
-    },
-    {
-      "label": "🔍 Protocol 5.3: Security Scan Only",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/scripts/Protocol-5-3-SecurityLock.ps1",
-        "-ScanAndSecure"
-      ],
-      "group": "security",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": true,
-        "panel": "shared"
-      }
-    },
-    {
-      "label": "🎭 Protocol 5.3: Boardwalk Mapping",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/scripts/Protocol-5-3-SecurityLock.ps1",
-        "-ImplementBoardwalkProtocol"
-      ],
-      "group": "security",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": true,
-        "panel": "shared"
-      }
-    },
-    {
-      "label": "✝️ Spiritual Protection: Emergency Divine Shield",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/scripts/Spiritual-Protection-Protocol.ps1",
-        "-EmergencyProtection",
-        "-SpiritualCleansing",
-        "-EstablishDivineShield",
-        "-ContinuousProtection"
-      ],
-      "group": "spiritual",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": true,
-        "panel": "new"
-      },
-      "problemMatcher": []
-    },
-    {
-      "label": "🕊️ Spiritual Protection: Workspace Cleansing",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/scripts/Spiritual-Protection-Protocol.ps1",
-        "-SpiritualCleansing"
-      ],
-      "group": "spiritual",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": true,
-        "panel": "shared"
-      }
-    },
-    {
-      "label": "📖 Scripture Codex Mesh: KJV Authority",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/scripts/Scripture-Codex-Mesh.ps1",
-        "-InitializeScriptureMesh",
-        "-ValidateAllComponents",
-        "-GenerateScriptureLedger",
-        "-SealAllFiles"
-      ],
-      "group": "scripture",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": true,
-        "panel": "new"
-      },
-      "problemMatcher": []
-    },
-    {
-      "label": "📜 Scripture Validation Only",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/scripts/Scripture-Codex-Mesh.ps1",
-        "-ValidateAllComponents"
-      ]
-    },
-    {
-      "label": "🏗️ Cross-Platform OS Foundation",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/scripts/Cross-Platform-OS-Foundation.ps1",
-        "-DesignKernel",
-        "-CreateDeploymentPlan",
-        "-GenerateArchitecture",
-        "-BuildFoundation"
-      ],
-      "group": "os-development",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": true,
-        "panel": "new"
-      },
-      "problemMatcher": []
-    },
-    {
-      "label": "Newsletter: Ingest (Offline Drop)",
-      "type": "shell",
-      "command": "powershell",
-      "args": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "Z:/News/newsletter_ingest_offline.ps1"]
-    },
-    {
-      "label": "Newsletter: Fetch (RSS Online)",
-      "type": "shell",
-      "command": "powershell",
-      "args": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "Z:/News/newsletter_fetch_rss.ps1"]
-    },
-    {
-      "label": "Newsletter: Build Digest",
-      "type": "shell",
-      "command": "powershell",
-      "args": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "Z:/News/newsletter_digest.ps1", "-Model", "local-model"]
-    },
-    {
-      "label": "Newsletter: SAC Finish",
-      "type": "shell",
-      "command": "powershell",
-      "args": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "Z:/News/newsletter_sac.ps1", "-Model", "local-model"]
-    },
-    {
-      "label": "SITREP: Project Status",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/Get-ProjectSITREP.ps1",
-        "-ProjectsRoot",
-        "Z:/Forge/apps",
-        "-OutputFile",
-        "${workspaceFolder}/PROJECT_SITREP.md"
-      ],
-      "problemMatcher": [],
-      "presentation": {
-        "reveal": "always",
-        "panel": "new"
-      }
-    },
-    {
-      "label": "Close-out: Master End-State (Auditable)",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/scripts/master_closeout.ps1",
-        "-WorkspacePath",
-        "${workspaceFolder}"
-      ],
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": true,
-        "panel": "shared"
-      },
-      "problemMatcher": []
-    },
-    {
-      "label": "Close-out: Master End-State (Dry Run)",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/scripts/master_closeout_ps1",
-        "-WorkspacePath",
-        "${workspaceFolder}",
-        "-DryRun"
-      ],
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared"
-      },
-      "problemMatcher": []
-    },
-    {
-      "label": "Fleet: Review VS Code on PCs (up to 5)",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/scripts/Review-VSCode-Fleet.ps1",
-        "-Targets",
-        "${input:targetPCs}",
-        "-MaxPCs",
-        "5"
-      ]
-    },
-    {
-      "label": "Git: Clone All (from manifest)",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/scripts/Clone-All-Repos.ps1",
-        "-ManifestFile",
-        "${workspaceFolder}/repos.manifest.txt",
-        "-DestRoot",
-        "Z:/Forge/apps",
-        "-PullIfExists"
-      ],
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared"
-      },
-      "problemMatcher": []
-    },
-    {
-      "label": "Accelerate: Full Auto Run (No Sloth / No Ego)",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/scripts/Full-AutoRun.ps1",
-        "-Solution",
-        "${workspaceFolder}/PrecisePointway.sln"
-      ],
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": true,
-        "panel": "shared"
-      },
-      "problemMatcher": []
-    },
-    {
-      "label": "Accelerate: Full Auto Run Release",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/scripts/Full-AutoRun.ps1",
-        "-Solution",
-        "${workspaceFolder}/PrecisePointway.sln",
-        "-Release"
-      ],
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared"
-      },
-      "problemMatcher": []
-    },
-    {
-      "label": "Empathy: Run All Tests (Headless)",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/scripts/Run-Empathy-Tests.ps1"
-      ],
-      "group": "test",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "panel": "shared"
-      },
-      "problemMatcher": []
-    },
-    {
-      "label": "Empathy: Deterministic",
-      "type": "shell",
-      "command": "python",
-      "args": [
-        "${workspaceFolder}/agi/tests/deterministic/test_cases.py"
-      ],
-      "group": "test",
-      "presentation": {
-        "reveal": "always",
-        "panel": "shared"
-      }
-    },
-    {
-      "label": "Empathy: Redteam Monte Carlo",
-      "type": "shell",
-      "command": "python",
-      "args": [
-        "${workspaceFolder}/agi/tests/monte_carlo/run_redteam.py"
-      ],
-      "group": "test",
-      "presentation": {
-        "reveal": "always",
-        "panel": "shared"
-      }
-    },
-    {
-      "label": "Empathy: Fuzz",
-      "type": "shell",
-      "command": "python",
-      "args": [
-        "${workspaceFolder}/agi/tests/fuzz/run_dep_fuzz.py"
-      ],
-      "group": "test",
-      "presentation": {
-        "reveal": "always",
-        "panel": "shared"
-      }
-    },
-    {
-      "label": "Empathy: Remote Run (PC1,PC12,PC4,PC5)",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/scripts/Invoke-RemoteEmpathyTests.ps1",
-        "-Targets",
-        "PC1,PC12,PC4,PC5",
-        "-RepoPath",
-        "Z:/Forge/apps/master",
-        "-MonteCarloN",
-        "1000",
-        "-PromptForCredential"
-      ],
-      "group": "test",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "panel": "shared"
-      },
-      "problemMatcher": []
-    },
-    {
-      "label": "Empathy: Remote Run (Custom Targets)",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/scripts/Invoke-RemoteEmpathyTests.ps1",
-        "-Targets",
-        "${input:remoteTargets}",
-        "-RepoPath",
-        "${input:remoteRepoPath}",
-        "-MonteCarloN",
-        "${input:monteN}",
-        "-PromptForCredential"
-      ],
-      "group": "test",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "panel": "shared"
-      },
-      "problemMatcher": []
-    },
-    {
-      "label": "Policy: Validate Manifest",
-      "type": "shell",
-      "command": "powershell",
-      "args": ["-NoProfile","-ExecutionPolicy","Bypass","-File","${workspaceFolder}/scripts/Validate-Policy.ps1"],
-      "group": "build",
-      "presentation": {"echo": true, "reveal": "always", "panel": "shared"},
-      "problemMatcher": []
-    },
-    {
-      "label": "Policy: Sign Manifest",
-      "type": "shell",
-      "command": "powershell",
-      "args": ["-NoProfile","-ExecutionPolicy","Bypass","-File","${workspaceFolder}/scripts/Sign-Policies.ps1"],
-      "group": "build",
-      "presentation": {"echo": true, "reveal": "always", "panel": "shared"},
-      "problemMatcher": []
-    },
-    {
-      "label": "Ollama: Status",
-      "type": "shell",
-      "command": "powershell",
-      "args": ["-NoProfile","-ExecutionPolicy","Bypass","-File","${workspaceFolder}/scripts/Ollama-Orchestrator.ps1","-Mode","status"],
-      "group": "test",
-      "presentation": {"echo": true, "reveal": "always", "panel": "shared"},
-      "problemMatcher": []
-    },
-    {
-      "label": "Ollama: Auto Query",
-      "type": "shell",
-      "command": "powershell",
-      "args": ["-NoProfile","-ExecutionPolicy","Bypass","-File","${workspaceFolder}/scripts/Ollama-Orchestrator.ps1","-Mode","auto","-Query","${input:ollamaQuery}"],
-      "group": "test",
-      "presentation": {"echo": true, "reveal": "always", "panel": "shared"},
-      "problemMatcher": []
-    },
-    {
-      "label": "Ollama: Verifier",
-      "type": "shell",
-      "command": "powershell",
-      "args": ["-NoProfile","-ExecutionPolicy","Bypass","-File","${workspaceFolder}/scripts/Ollama-Orchestrator.ps1","-Mode","verifier","-Query","${input:ollamaQuery}"],
-      "group": "test",
-      "presentation": {"echo": true, "reveal": "always", "panel": "shared"},
-      "problemMatcher": []
-    },
-    {
-      "label": "Ollama: Enforcer Only",
-      "type": "shell",
-      "command": "powershell",
-      "args": ["-NoProfile","-ExecutionPolicy","Bypass","-File","${workspaceFolder}/scripts/Ollama-Orchestrator.ps1","-Mode","enforcer","-Query","${input:ollamaQuery}"],
-      "group": "test",
-      "presentation": {"echo": true, "reveal": "always", "panel": "shared"},
-      "problemMatcher": []
-    },
-    {
-      "label": "Ollama: Debug Full Trace",
-      "type": "shell",
-      "command": "powershell",
-      "args": ["-NoProfile","-ExecutionPolicy","Bypass","-File","${workspaceFolder}/scripts/Ollama-Orchestrator.ps1","-Mode","debug","-Query","${input:ollamaQuery}","-JsonOut"],
-      "group": "test",
-      "presentation": {"echo": true, "reveal": "always", "panel": "shared"},
-      "problemMatcher": []
-    },
-    {
-      "label": "VS: Open Current Solution in Visual Studio",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/scripts/Start-VisualStudio.ps1",
-        "-Path",
-        "${workspaceFolder}/PrecisePointway.sln"
-      ],
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "panel": "shared"
-      },
-      "problemMatcher": []
-    },
-    {
-      "label": "VS: Launch All Solutions",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/scripts/Launch-All-Solutions.ps1",
-        "-SolutionPaths",
-        "C:/vs-studio-projects/repo1/repo1.sln",
-        "C:/vs-studio-projects/repo2/repo2.sln"
-      ],
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "panel": "shared"
-      },
-      "problemMatcher": []
-    },
-    {
-      "label": "Blend: Open Boardroom UI",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/scripts/Start-Blend.ps1",
-        "-Path",
-        "${workspaceFolder}/Data/boardroom_gui.xaml"
-      ],
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "panel": "shared"
-      },
-      "problemMatcher": []
-    },
-    {
-      "label": "Docs: Export Sovereign Protocol v7.0 to PDF",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile","-ExecutionPolicy","Bypass","-File",
-        "${workspaceFolder}/scripts/Export-Protocol-PDF.ps1",
-        "-InputPath","${workspaceFolder}/docs/Sovereign-Data-Continuity-Protocol-v7.0.md",
-        "-OutputPath","${workspaceFolder}/docs/Sovereign-Data-Continuity-Protocol-v7.0.pdf",
-        "-Open"
-      ],
-      "group": "build",
-      "presentation": {"echo": true, "reveal": "always", "panel": "shared"},
-      "problemMatcher": []
-    },
-    {
-      "label": "Docs: Open Sovereign Protocol v7.0 (Markdown)",
-      "type": "shell",
-      "command": "cmd",
-      "args": ["/c","start","","${workspaceFolder}/docs/Sovereign-Data-Continuity-Protocol-v7.0.md"],
-      "problemMatcher": []
-    },
-    {
-      "label": "Git: Verify HEAD signature",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile","-ExecutionPolicy","Bypass","-Command",
-        "git -C \"${workspaceFolder}\" verify-commit HEAD"
-      ],
-      "group": "build",
-      "presentation": {"echo": true, "reveal": "always", "panel": "shared"},
-      "problemMatcher": []
-    },
-    {
-      "label": "Docs: Verify GPG then Export v7.0 PDF",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile","-ExecutionPolicy","Bypass","-Command",
-        "$ErrorActionPreference='Stop'; git -C \"${workspaceFolder}\" verify-commit HEAD; & \"${workspaceFolder}/scripts/Export-Protocol-PDF.ps1\" -InputPath \"${workspaceFolder}/docs/Sovereign-Data-Continuity-Protocol-v7.0.md\" -OutputPath \"${workspaceFolder}/docs/Sovereign-Data-Continuity-Protocol-v7.0.pdf\" -Open"
-      ],
-      "group": "build",
-      "presentation": {"echo": true, "reveal": "always", "panel": "shared"},
-      "problemMatcher": []
-    },
-    {
-      "label": "Protocol: Export to DOCX",
-      "type": "shell",
-      "command": "pandoc",
-      "args": [
-        "docs/Sovereign-Data-Continuity-Protocol-v7.0.md",
-        "-o",
-        "docs/Sovereign-Data-Continuity-Protocol-v7.0.docx"
-      ],
-      "group": { "kind": "build", "isDefault": false },
-      "problemMatcher": []
-    },
-    {
-      "label": "Protocol: Export to PDF (if LaTeX installed)",
-      "type": "shell",
-      "command": "pandoc",
-      "args": [
-        "docs/Sovereign-Data-Continuity-Protocol-v7.0.md",
-        "-o",
-        "docs/Sovereign-Data-Continuity-Protocol-v7.0.pdf",
-        "--from","markdown",
-        "--pdf-engine=xelatex"
-      ],
-      "group": "build",
-      "problemMatcher": []
-    },
-    {
-      "label": "Protocol: Open DOCX",
-      "type": "shell",
-      "command": "cmd",
-      "args": ["/c","start","","${workspaceFolder}\\docs\\Sovereign-Data-Continuity-Protocol-v7.0.docx"],
-      "problemMatcher": []
-    },
-    {
-      "label": "Protocol: Export DOCX + Open",
-      "dependsOn": [
-        "Protocol: Export to DOCX",
-        "Protocol: Open DOCX"
-      ],
-      "dependsOrder": "sequence"
-    },
-    {
-      "label": "Protocol: Open PDF",
-      "type": "shell",
-      "command": "cmd",
-      "args": ["/c","start","","${workspaceFolder}\\docs\\Sovereign-Data-Continuity-Protocol-v7.0.pdf"],
-      "problemMatcher": []
-    },
-    {
-      "label": "Protocol: Export PDF + Open",
-      "dependsOn": [
-        "Protocol: Export to PDF (if LaTeX installed)",
-        "Protocol: Open PDF"
-      ],
-      "dependsOrder": "sequence"
-    },
-    {
-      "label": "Pandoc: Current file → DOCX",
-      "type": "shell",
-      "command": "pandoc",
-      "args": [
-        "${file}",
-        "-o",
-        "${fileDirname}/${fileBasenameNoExtension}.docx"
-      ],
-      "group": "build",
-      "problemMatcher": []
-    },
-    {
-      "label": "Pandoc: Current file → PDF (if LaTeX installed)",
-      "type": "shell",
-      "command": "pandoc",
-      "args": [
-        "${file}",
-        "-o",
-        "${fileDirname}/${fileBasenameNoExtension}.pdf",
-        "--from","markdown",
-        "--pdf-engine=xelatex"
-      ],
-      "group": "build",
-      "problemMatcher": []
-    },
-    {
-      "label": "Blade: UI Dev (Electron)",
-      "type": "shell",
-      "command": "powershell",
-      "args": ["-NoProfile","-ExecutionPolicy","Bypass","-Command","cd \"${workspaceFolder}/blade_ui\"; npm install --no-audit --no-fund; npm run dev"],
-      "group": "build",
-      "presentation": {"echo": true, "reveal": "always", "panel": "shared"},
-      "problemMatcher": []
-    },
-    {
-      "label": "Blade: Generate Scanner Manifest",
-      "type": "shell",
-      "command": "powershell",
-      "args": ["-NoProfile","-ExecutionPolicy","Bypass","-File","${workspaceFolder}/scripts/Blade-Scanner.ps1"],
-      "group": "build",
-      "presentation": {"echo": true, "reveal": "always", "panel": "shared"},
-      "problemMatcher": []
-    },
-    {
-      "label": "Blade: Build Truth Index",
-      "type": "shell",
-      "command": "powershell",
-      "args": ["-NoProfile","-ExecutionPolicy","Bypass","-Command","python \"${workspaceFolder}/EliteTruthEngine/build_index.py\" --manifest C:/EliteTruthEngine/manifest.txt"],
-      "group": "build",
-      "presentation": {"echo": true, "reveal": "always", "panel": "shared"},
-      "problemMatcher": []
-    },
-    {
-      "label": "Blade: Start Truth Engine API",
-      "type": "shell",
-      "command": "powershell",
-      "args": ["-NoProfile","-ExecutionPolicy","Bypass","-Command","cd \"${workspaceFolder}/EliteTruthEngine\"; uvicorn server:app --host 127.0.0.1 --port 8000"],
-      "group": "build",
-      "presentation": {"echo": true, "reveal": "always", "panel": "shared"},
-      "problemMatcher": []
-    },
-    {
-      "label": "Blade: Generate Golden Master Hash Manifest",
-      "type": "shell",
-      "command": "powershell",
-      "args": ["-NoProfile","-ExecutionPolicy","Bypass","-File","${workspaceFolder}/scripts/Generate-GoldenMaster-Manifest.ps1"],
-      "group": "build",
-      "presentation": {"echo": true, "reveal": "always", "panel": "shared"},
-      "problemMatcher": []
-    },
-    {
-      "label": "Media: Transcribe Video (2-part)",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile","-ExecutionPolicy","Bypass","-File",
-        "${workspaceFolder}/scripts/Transcribe-Video.ps1",
-        "-Input","${input:videoUrl}",
-        "-SplitParts","2"
-      ],
-      "group": "build",
-      "presentation": {"echo": true, "reveal": "always", "panel": "shared"},
-      "problemMatcher": []
-    },
-    {
-      "label": "Media: G-Transcript Merge (2-part)",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-NoProfile","-ExecutionPolicy","Bypass","-File",
-        "${workspaceFolder}/scripts/G-Transcript.ps1",
-        "-Inputs","${input:videoList}",
-        "-SplitParts","2"
-      ],
-      "group": "build",
-      "presentation": {"echo": true, "reveal": "always", "panel": "shared"},
-      "problemMatcher": []
+        "label": "00: Sovereign IDE Preflight",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "C:/Users/andyj/AI_Agent_Research/sovereign_ide_preflight.ps1"
+        ],
+        "presentation": {
+            "reveal": "always",
+            "panel": "shared"
+        },
+        "problemMatcher": []
+    },
+    {
+        "label": "Sovereign: Discovery Repo Remotes",
+        "type": "shell",
+        "command": "powershell",
+        "args": ["-NoProfile","-ExecutionPolicy","Bypass","-File","${workspaceFolder}/scripts/Discovery-RepoRemotes.ps1","-Root","C:/Users/andyj","-Repos","source/repos/PrecisePointway/master","source/repos/Blade2AI"],
+        "presentation": {"reveal": "always", "panel": "shared"}
+    },
+    {
+        "label": "Sovereign: Discovery Solutions",
+        "type": "shell",
+        "command": "powershell",
+        "args": ["-NoProfile","-ExecutionPolicy","Bypass","-File","${workspaceFolder}/scripts/Discovery-Solutions.ps1","-Root","C:/Users/andyj"],
+        "presentation": {"reveal": "always", "panel": "shared"}
+    },
+    {
+        "label": "Sovereign: Bootstrap IDE",
+        "type": "shell",
+        "command": "powershell",
+        "args": ["-NoProfile","-ExecutionPolicy","Bypass","-File","${workspaceFolder}/scripts/Bootstrap-All.ps1","-Root","C:/Users/andyj","-Repos","source/repos/PrecisePointway/master","source/repos/Blade2AI","-Org","PrecisePointway"],
+        "presentation": {"reveal": "always", "panel": "shared"}
+    },
+    {
+        "label": "Sovereign: Healthcheck",
+        "type": "shell",
+        "command": "powershell",
+        "args": ["-NoProfile","-ExecutionPolicy","Bypass","-File","${workspaceFolder}/scripts/Healthcheck.ps1"],
+        "presentation": {"reveal": "always", "panel": "shared"}
+    },
+    {
+        "label": "Sovereign: Ledger Audit",
+        "type": "shell",
+        "command": "powershell",
+        "args": ["-NoProfile","-ExecutionPolicy","Bypass","-File","${workspaceFolder}/scripts/Ledger-Audit.ps1"],
+        "presentation": {"reveal": "always", "panel": "shared"}
+    },
+    {
+        "label": "Sovereign: ALL Bootstrap Stack",
+        "dependsOn": [
+            "Sovereign: Discovery Repo Remotes",
+            "Sovereign: Discovery Solutions",
+            "Sovereign: Bootstrap IDE",
+            "Sovereign: Healthcheck",
+            "Sovereign: Ledger Audit"
+        ],
+        "dependsOrder": "sequence"
+    },
+    {
+        "label": "Collab: Start (Pull + Open + Live Share)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/Start-Collab.ps1",
+            "-WorkspacePath",
+            "${workspaceFolder}",
+            "-AutoLiveShare"
+        ],
+        "problemMatcher": []
+    },
+    {
+        "label": "Collab: End (Commit + Push)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/End-Collab.ps1",
+            "-WorkspacePath",
+            "${workspaceFolder}",
+            "-Message",
+            "${input:commitMessage}"
+        ]
+    },
+    {
+        "label": "LiveShare: Start Host Session (Enhanced with Kindness)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/Start-LiveShare-Host.ps1",
+            "-WorkspacePath",
+            "${workspaceFolder}",
+            "-AutoNotify",
+            "-SolutionFile",
+            "${workspaceFolder}/PrecisePointway.sln",
+            "-AutoDiscover",
+            "-DetailedMetrics"
+        ],
+        "group": "build",
+        "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "focus": false,
+            "panel": "shared",
+            "showReuseMessage": true
+        },
+        "problemMatcher": [],
+        "runOptions": {
+            "instanceLimit": 1
+        }
+    },
+    {
+        "label": "LiveShare: Start Host Session (Basic)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/Start-LiveShare-Host.ps1",
+            "-WorkspacePath",
+            "${workspaceFolder}",
+            "-SolutionFile",
+            "${workspaceFolder}/PrecisePointway.sln"
+        ],
+        "group": "build",
+        "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "focus": false,
+            "panel": "shared",
+            "showReuseMessage": true
+        },
+        "problemMatcher": [],
+        "runOptions": {
+            "instanceLimit": 1
+        }
+    },
+    {
+        "label": "LiveShare: Join Session (with Kindness)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/Join-LiveShare-Guest.ps1",
+            "-WorkspacePath",
+            "${workspaceFolder}",
+            "-AutoOpen"
+        ],
+        "group": "build",
+        "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "focus": false,
+            "panel": "shared"
+        },
+        "problemMatcher": []
+    },
+    {
+        "label": "LiveShare: Quick Join (Read from NAS)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/LiveShare-QuickJoin.ps1",
+            "-NasRoot",
+            "\\\\dxp4800plus-67ba\\ops"
+        ],
+        "group": "build",
+        "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "focus": false,
+            "panel": "shared"
+        },
+        "problemMatcher": []
+    },
+    {
+        "label": "LiveShare: Check Session Status",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/LiveShare-Status.ps1",
+            "-NasRoot",
+            "\\\\dxp4800plus-67ba\\ops"
+        ],
+        "group": "build",
+        "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "focus": false,
+            "panel": "shared"
+        },
+        "problemMatcher": []
+    },
+    {
+        "label": "LiveShare: Test Network Optimization",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/Test-LiveShare-Optimization.ps1",
+            "-AutoDiscover",
+            "-ShowDetailedMetrics",
+            "-PingCount",
+            "8"
+        ],
+        "group": "test",
+        "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "focus": false,
+            "panel": "shared"
+        },
+        "problemMatcher": []
+    },
+    {
+        "label": "LiveShare: Test Specific PCs",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/Test-LiveShare-Optimization.ps1",
+            "-TargetPCs",
+            "${input:targetPCs}",
+            "-ShowDetailedMetrics"
+        ],
+        "group": "test",
+        "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "focus": false,
+            "panel": "shared"
+        },
+        "problemMatcher": []
+    },
+    {
+        "label": "Fleet: Bootstrap All PCs",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/FleetBootstrap.ps1",
+            "-RunNow"
+        ],
+        "group": "build",
+        "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "focus": false,
+            "panel": "shared"
+        },
+        "problemMatcher": []
+    },
+    {
+        "label": "Fleet: Deploy LiveShare Setup (Full Optimization with Kindness)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/Deploy-LiveShare-Fleet.ps1",
+            "-InstallLiveShare",
+            "-SetupTasks",
+            "-OptimizeLAN"
+        ]
+    },
+    {
+        "label": "Fleet: Deploy to Specific PCs",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/Deploy-LiveShare-Fleet.ps1",
+            "-Targets",
+            "${input:targetPCs}",
+            "-InstallLiveShare",
+            "-SetupTasks",
+            "-OptimizeLAN"
+        ],
+        "group": "build",
+        "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "focus": false,
+            "panel": "shared"
+        },
+        "problemMatcher": []
+    },
+    {
+        "label": "Git: Pull",
+        "type": "shell",
+        "command": "git",
+        "args": ["pull"],
+        "problemMatcher": []
+    },
+    {
+        "label": "Git: Push",
+        "type": "shell",
+        "command": "git",
+        "args": ["push"],
+        "problemMatcher": []
+    },
+    {
+        "label": "Build: C++14 Debug (with Care)",
+        "type": "shell",
+        "command": "msbuild",
+        "args": [
+            "${workspaceFolder}/PrecisePointway.sln",
+            "/p:Configuration=Debug",
+            "/p:Platform=x64"
+        ],
+        "group": {
+            "kind": "build",
+            "isDefault": true
+        },
+        "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "focus": false,
+            "panel": "shared"
+        },
+        "problemMatcher": "$msCompile"
+    },
+    {
+        "label": "Build: C++14 Release (with Excellence)",
+        "type": "shell",
+        "command": "msbuild",
+        "args": [
+            "${workspaceFolder}/PrecisePointway.sln",
+            "/p:Configuration=Release",
+            "/p:Platform=x64"
+        ],
+        "group": "build",
+        "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "focus": false,
+            "panel": "shared"
+        },
+        "problemMatcher": "$msCompile"
+    },
+    {
+        "label": "LiveShare: Start Behavioral OS Host",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/Start-BehavioralOS-Host.ps1",
+            "-EnableBehavioralOS",
+            "-EnableCAI",
+            "-AutoDiscover"
+        ],
+        "group": "build",
+        "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "focus": false,
+            "panel": "shared"
+        }
+    },
+    {
+        "label": "LiveShare: Test Behavioral OS Network",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/Test-BehavioralOS-Network.ps1",
+            "-AutoDiscover",
+            "-ShowDetailedMetrics"
+        ],
+        "group": "test",
+        "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "focus": false,
+            "panel": "shared"
+        },
+        "problemMatcher": []
+    },
+    {
+        "label": "BigCodex: Generate Fact Card",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/BigCodex-FactCard.ps1",
+            "-FleetShare",
+            "-ValidateEvidence"
+        ],
+        "group": "codex",
+        "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "focus": true,
+            "panel": "shared"
+        }
+    },
+    {
+        "label": "BigCodex: Generate Timeline",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/BigCodex-Timeline.ps1",
+            "-FleetShare"
+        ],
+        "group": "codex"
+    },
+    {
+        "label": "BigCodex: Evidence Validation",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/BigCodex-Validate.ps1",
+            "-ComprehensiveCheck"
+        ],
+        "group": "codex"
+    },
+    {
+        "label": "Fleet: Deploy BigCodex to All PCs",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/Deploy-BigCodex-Fleet.ps1",
+            "-InstallCodex",
+            "-SyncEvidence"
+        ],
+        "group": "deployment"
+    },
+    {
+        "label": "Fleet: Optimize with Mistral AI",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/Optimize-Fleet-Mistral.ps1",
+            "-AnalyzeNetwork",
+            "-OptimizeConfiguration",
+            "-GenerateRecommendations"
+        ],
+        "group": "optimization"
+    },
+    {
+        "label": "Elite Search: Comprehensive Analysis",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/Elite-Search.ps1",
+            "-Scope",
+            "Comprehensive",
+            "-FleetShare",
+            "-GenerateFactCard",
+            "-ApplyTruthFilter"
+        ],
+        "group": "search",
+        "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "focus": true,
+            "panel": "new"
+        },
+        "problemMatcher": []
+    },
+    {
+        "label": "Elite Search: Local Workspace",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/Elite-Search.ps1",
+            "-Scope",
+            "Local",
+            "-SearchQuery",
+            "${input:searchQuery}"
+        ],
+        "group": "search",
+        "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "focus": true,
+            "panel": "shared"
+        }
+    },
+    {
+        "label": "Elite Search: Fleet Analysis",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/Elite-Search.ps1",
+            "-Scope",
+            "Fleet",
+            "-FleetShare",
+            "-SearchQuery",
+            "${input:searchQuery}"
+        ],
+        "group": "search",
+        "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "focus": true,
+            "panel": "shared"
+        }
+    },
+    {
+        "label": "Elite Search: Spiritual Wisdom",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/Elite-Search.ps1",
+            "-Scope",
+            "Spiritual",
+            "-SearchQuery",
+            "${input:searchQuery}"
+        ],
+        "group": "search",
+        "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "focus": true,
+            "panel": "shared"
+        }
+    },
+    {
+        "label": "Precise Pointway: Obama-Robinson Investigation",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/Execute-PrecisePointway-Search.ps1",
+            "-FullInvestigation",
+            "-GenerateFactCard",
+            "-FleetShare"
+        ],
+        "group": "investigation",
+        "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "focus": true,
+            "panel": "new"
+        },
+        "problemMatcher": []
+    },
+    {
+        "label": "Precise Pointway: Focused Analysis",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/Execute-PrecisePointway-Search.ps1",
+            "-FleetShare"
+        ],
+        "group": "investigation",
+        "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "focus": true,
+            "panel": "shared"
+        }
+    },
+    {
+        "label": "Analytics: Fleet Dashboard (Real-Time Intelligence)",
+        "type": "shell",
+        "command": "powershell",
+        "args": ["-File", "scripts/Analytics-FleetDashboard.ps1"],
+        "problemMatcher": []
+    },
+    {
+        "label": "Analytics: Live Monitoring",
+        "type": "shell",
+        "command": "powershell",
+        "args": ["-File", "scripts/Analytics-LiveMonitoring.ps1"],
+        "problemMatcher": []
+    },
+    {
+        "label": "P0 Intake (KISS)",
+        "type": "shell",
+        "command": "echo Intake raw data from DATA/_raw/ (KISS mode)",
+        "detail": "Open DATA/_raw/ and begin intake."
+    },
+    {
+        "label": "P1 Compare",
+        "type": "shell",
+        "command": "python tools/index_and_dedupe.py --sources \"DATA/_raw,notes,docs,prompts\"",
+        "detail": "Compare local ideas, draft SITREP, continue with P2 Reporting."
+    },
+    {
+        "label": "P2 Report",
+        "type": "shell",
+        "command": "echo Copy first 25 rows of DATA/_work/index.csv to DATA/_report/SITREP.md",
+        "detail": "Prepare and copy SITREP report."
+    },
+    {
+        "label": "LM Studio",
+        "type": "shell",
+        "command": "echo Open prompts/lm_codex.txt in LM Studio for feedback.",
+        "detail": "Open prompt for LM Studio feedback."
+    },
+    {
+        "label": "🔒 Protocol 5.3: Emergency Security Lock",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/Protocol-5-3-SecurityLock.ps1",
+            "-EmergencyLock",
+            "-ScanAndSecure",
+            "-ImplementBoardwalkProtocol"
+        ],
+        "group": "security",
+        "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "focus": true,
+            "panel": "new"
+        },
+        "problemMatcher": []
+    },
+    {
+        "label": "🔍 Protocol 5.3: Security Scan Only",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/Protocol-5-3-SecurityLock.ps1",
+            "-ScanAndSecure"
+        ],
+        "group": "security",
+        "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "focus": true,
+            "panel": "shared"
+        }
+    },
+    {
+        "label": "🎭 Protocol 5.3: Boardwalk Mapping",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/Protocol-5-3-SecurityLock.ps1",
+            "-ImplementBoardwalkProtocol"
+        ],
+        "group": "security",
+        "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "focus": true,
+            "panel": "shared"
+        }
+    },
+    {
+        "label": "✝️ Spiritual Protection: Emergency Divine Shield",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/Spiritual-Protection-Protocol.ps1",
+            "-EmergencyProtection",
+            "-SpiritualCleansing",
+            "-EstablishDivineShield",
+            "-ContinuousProtection"
+        ],
+        "group": "spiritual",
+        "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "focus": true,
+            "panel": "new"
+        },
+        "problemMatcher": []
+    },
+    {
+        "label": "🕊️ Spiritual Protection: Workspace Cleansing",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/Spiritual-Protection-Protocol.ps1",
+            "-SpiritualCleansing"
+        ],
+        "group": "spiritual",
+        "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "focus": true,
+            "panel": "shared"
+        }
+    },
+    {
+        "label": "📖 Scripture Codex Mesh: KJV Authority",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/Scripture-Codex-Mesh.ps1",
+            "-InitializeScriptureMesh",
+            "-ValidateAllComponents",
+            "-GenerateScriptureLedger",
+            "-SealAllFiles"
+        ],
+        "group": "scripture",
+        "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "focus": true,
+            "panel": "new"
+        },
+        "problemMatcher": []
+    },
+    {
+        "label": "📜 Scripture Validation Only",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/Scripture-Codex-Mesh.ps1",
+            "-ValidateAllComponents"
+        ]
+    },
+    {
+        "label": "🏗️ Cross-Platform OS Foundation",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/Cross-Platform-OS-Foundation.ps1",
+            "-DesignKernel",
+            "-CreateDeploymentPlan",
+            "-GenerateArchitecture",
+            "-BuildFoundation"
+        ],
+        "group": "os-development",
+        "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "focus": true,
+            "panel": "new"
+        },
+        "problemMatcher": []
+    },
+    {
+        "label": "Newsletter: Ingest (Offline Drop)",
+        "type": "shell",
+        "command": "powershell",
+        "args": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "Z:/News/newsletter_ingest_offline.ps1"]
+    },
+    {
+        "label": "Newsletter: Fetch (RSS Online)",
+        "type": "shell",
+        "command": "powershell",
+        "args": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "Z:/News/newsletter_fetch_rss.ps1"]
+    },
+    {
+        "label": "Newsletter: Build Digest",
+        "type": "shell",
+        "command": "powershell",
+        "args": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "Z:/News/newsletter_digest.ps1", "-Model", "local-model"]
+    },
+    {
+        "label": "Newsletter: SAC Finish",
+        "type": "shell",
+        "command": "powershell",
+        "args": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "Z:/News/newsletter_sac.ps1", "-Model", "local-model"]
+    },
+    {
+        "label": "SITREP: Project Status",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/Get-ProjectSITREP.ps1",
+            "-ProjectsRoot",
+            "Z:/Forge/apps",
+            "-OutputFile",
+            "${workspaceFolder}/PROJECT_SITREP.md"
+        ],
+        "problemMatcher": [],
+        "presentation": {
+            "reveal": "always",
+            "panel": "new"
+        }
+    },
+    {
+        "label": "Close-out: Master End-State (Auditable)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/master_closeout.ps1",
+            "-WorkspacePath",
+            "${workspaceFolder}"
+        ],
+        "group": "build",
+        "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "focus": true,
+            "panel": "shared"
+        },
+        "problemMatcher": []
+    },
+    {
+        "label": "Close-out: Master End-State (Dry Run)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/master_closeout.ps1",
+            "-WorkspacePath",
+            "${workspaceFolder}",
+            "-DryRun"
+        ],
+        "group": "build",
+        "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "focus": false,
+            "panel": "shared"
+        },
+        "problemMatcher": []
+    },
+    {
+        "label": "Fleet: Review VS Code on PCs (up to 5)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/Review-VSCode-Fleet.ps1",
+            "-Targets",
+            "${input:targetPCs}",
+            "-MaxPCs",
+            "5"
+        ]
+    },
+    {
+        "label": "Git: Clone All (from manifest)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/Clone-All-Repos.ps1",
+            "-ManifestFile",
+            "${workspaceFolder}/repos.manifest.txt",
+            "-DestRoot",
+            "Z:/Forge/apps",
+            "-PullIfExists"
+        ],
+        "group": "build",
+        "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "focus": false,
+            "panel": "shared"
+        },
+        "problemMatcher": []
+    },
+    {
+        "label": "Accelerate: Full Auto Run (No Sloth / No Ego)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/Full-AutoRun.ps1",
+            "-Solution",
+            "${workspaceFolder}/PrecisePointway.sln"
+        ],
+        "group": "build",
+        "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "focus": true,
+            "panel": "shared"
+        },
+        "problemMatcher": []
+    },
+    {
+        "label": "Accelerate: Full Auto Run Release",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/Full-AutoRun.ps1",
+            "-Solution",
+            "${workspaceFolder}/PrecisePointway.sln",
+            "-Release"
+        ],
+        "group": "build",
+        "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "focus": false,
+            "panel": "shared"
+        },
+        "problemMatcher": []
+    },
+    {
+        "label": "Empathy: Run All Tests (Headless)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/Run-Empathy-Tests.ps1"
+        ],
+        "group": "test",
+        "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "panel": "shared"
+        },
+        "problemMatcher": []
+    },
+    {
+        "label": "Empathy: Deterministic",
+        "type": "shell",
+        "command": "python",
+        "args": [
+            "${workspaceFolder}/agi/tests/deterministic/test_cases.py"
+        ],
+        "group": "test",
+        "presentation": {
+            "reveal": "always",
+            "panel": "shared"
+        }
+    },
+    {
+        "label": "Empathy: Redteam Monte Carlo",
+        "type": "shell",
+        "command": "python",
+        "args": [
+            "${workspaceFolder}/agi/tests/monte_carlo/run_redteam.py"
+        ],
+        "group": "test",
+        "presentation": {
+            "reveal": "always",
+            "panel": "shared"
+        }
+    },
+    {
+        "label": "Empathy: Fuzz",
+        "type": "shell",
+        "command": "python",
+        "args": [
+            "${workspaceFolder}/agi/tests/fuzz/run_dep_fuzz.py"
+        ],
+        "group": "test",
+        "presentation": {
+            "reveal": "always",
+            "panel": "shared"
+        }
+    },
+    {
+        "label": "Empathy: Remote Run (PC1,PC12,PC4,PC5)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/Invoke-RemoteEmpathyTests.ps1",
+            "-Targets",
+            "PC1,PC12,PC4,PC5",
+            "-RepoPath",
+            "Z:/Forge/apps/master",
+            "-MonteCarloN",
+            "1000",
+            "-PromptForCredential"
+        ],
+        "group": "test",
+        "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "panel": "shared"
+        },
+        "problemMatcher": []
+    },
+    {
+        "label": "Empathy: Remote Run (Custom Targets)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/Invoke-RemoteEmpathyTests.ps1",
+            "-Targets",
+            "${input:remoteTargets}",
+            "-RepoPath",
+            "${input:remoteRepoPath}",
+            "-MonteCarloN",
+            "${input:monteN}",
+            "-PromptForCredential"
+        ],
+        "group": "test",
+        "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "panel": "shared"
+        },
+        "problemMatcher": []
+    },
+    {
+        "label": "Policy: Validate Manifest",
+        "type": "shell",
+        "command": "powershell",
+        "args": ["-NoProfile","-ExecutionPolicy","Bypass","-File","${workspaceFolder}/scripts/Validate-Policy.ps1"],
+        "group": "build",
+        "presentation": {"echo": true, "reveal": "always", "panel": "shared"},
+        "problemMatcher": []
+    },
+    {
+        "label": "Policy: Sign Manifest",
+        "type": "shell",
+        "command": "powershell",
+        "args": ["-NoProfile","-ExecutionPolicy","Bypass","-File","${workspaceFolder}/scripts/Sign-Policies.ps1"],
+        "group": "build",
+        "presentation": {"echo": true, "reveal": "always", "panel": "shared"},
+        "problemMatcher": []
+    },
+    {
+        "label": "Ollama: Status",
+        "type": "shell",
+        "command": "powershell",
+        "args": ["-NoProfile","-ExecutionPolicy","Bypass","-File","${workspaceFolder}/scripts/Ollama-Orchestrator.ps1","-Mode","status"],
+        "group": "test",
+        "presentation": {"echo": true, "reveal": "always", "panel": "shared"},
+        "problemMatcher": []
+    },
+    {
+        "label": "Ollama: Auto Query",
+        "type": "shell",
+        "command": "powershell",
+        "args": ["-NoProfile","-ExecutionPolicy","Bypass","-File","${workspaceFolder}/scripts/Ollama-Orchestrator.ps1","-Mode","auto","-Query","${input:ollamaQuery}"],
+        "group": "test",
+        "presentation": {"echo": true, "reveal": "always", "panel": "shared"},
+        "problemMatcher": []
+    },
+    {
+        "label": "Ollama: Verifier",
+        "type": "shell",
+        "command": "powershell",
+        "args": ["-NoProfile","-ExecutionPolicy","Bypass","-File","${workspaceFolder}/scripts/Ollama-Orchestrator.ps1","-Mode","verifier","-Query","${input:ollamaQuery}"],
+        "group": "test",
+        "presentation": {"echo": true, "reveal": "always", "panel": "shared"},
+        "problemMatcher": []
+    },
+    {
+        "label": "Ollama: Enforcer Only",
+        "type": "shell",
+        "command": "powershell",
+        "args": ["-NoProfile","-ExecutionPolicy","Bypass","-File","${workspaceFolder}/scripts/Ollama-Orchestrator.ps1","-Mode","enforcer","-Query","${input:ollamaQuery}"],
+        "group": "test",
+        "presentation": {"echo": true, "reveal": "always", "panel": "shared"},
+        "problemMatcher": []
+    },
+    {
+        "label": "Ollama: Debug Full Trace",
+        "type": "shell",
+        "command": "powershell",
+        "args": ["-NoProfile","-ExecutionPolicy","Bypass","-File","${workspaceFolder}/scripts/Ollama-Orchestrator.ps1","-Mode","debug","-Query","${input:ollamaQuery}","-JsonOut"],
+        "group": "test",
+        "presentation": {"echo": true, "reveal": "always", "panel": "shared"},
+        "problemMatcher": []
+    },
+    {
+        "label": "VS: Open Current Solution in Visual Studio",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/Start-VisualStudio.ps1",
+            "-Path",
+            "${workspaceFolder}/PrecisePointway.sln"
+        ],
+        "group": "build",
+        "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "panel": "shared"
+        },
+        "problemMatcher": []
+    },
+    {
+        "label": "VS: Launch All Solutions",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/Launch-All-Solutions.ps1",
+            "-SolutionPaths",
+            "C:/vs-studio-projects/repo1/repo1.sln",
+            "C:/vs-studio-projects/repo2/repo2.sln"
+        ],
+        "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "panel": "shared"
+        },
+        "problemMatcher": []
+    },
+    {
+        "label": "Blend: Open Boardroom UI",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/Start-Blend.ps1",
+            "-Path",
+            "${workspaceFolder}/Data/boardroom_gui.xaml"
+        ],
+        "group": "build",
+        "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "panel": "shared"
+        },
+        "problemMatcher": []
+    },
+    {
+        "label": "Docs: Export Sovereign Protocol v7.0 to PDF",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile","-ExecutionPolicy","Bypass","-File",
+            "${workspaceFolder}/scripts/Export-Protocol-PDF.ps1",
+            "-InputPath","${workspaceFolder}/docs/Sovereign-Data-Continuity-Protocol-v7.0.md",
+            "-OutputPath","${workspaceFolder}/docs/Sovereign-Data-Continuity-Protocol-v7.0.pdf",
+            "-Open"
+        ],
+        "group": "build",
+        "presentation": {"echo": true, "reveal": "always", "panel": "shared"},
+        "problemMatcher": []
+    },
+    {
+        "label": "Docs: Open Sovereign Protocol v7.0 (Markdown)",
+        "type": "shell",
+        "command": "cmd",
+        "args": ["/c","start","","${workspaceFolder}/docs/Sovereign-Data-Continuity-Protocol-v7.0.md"],
+        "problemMatcher": []
+    },
+    {
+        "label": "Git: Verify HEAD signature",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile","-ExecutionPolicy","Bypass","-Command",
+            "git -C \"${workspaceFolder}\" verify-commit HEAD"
+        ],
+        "group": "build",
+        "presentation": {"echo": true, "reveal": "always", "panel": "shared"},
+        "problemMatcher": []
+    },
+    {
+        "label": "Docs: Verify GPG then Export v7.0 PDF",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile","-ExecutionPolicy","Bypass","-Command",
+            "$ErrorActionPreference='Stop'; git -C \"${workspaceFolder}\" verify-commit HEAD; & \"${workspaceFolder}/scripts/Export-Protocol-PDF.ps1\" -InputPath \"${workspaceFolder}/docs/Sovereign-Data-Continuity-Protocol-v7.0.md\" -OutputPath \"${workspaceFolder}/docs/Sovereign-Data-Continuity-Protocol-v7.0.pdf\" -Open"
+        ],
+        "group": "build",
+        "presentation": {"echo": true, "reveal": "always", "panel": "shared"},
+        "problemMatcher": []
+    },
+    {
+        "label": "Protocol: Export to DOCX",
+        "type": "shell",
+        "command": "pandoc",
+        "args": [
+            "docs/Sovereign-Data-Continuity-Protocol-v7.0.md",
+            "-o",
+            "docs/Sovereign-Data-Continuity-Protocol-v7.0.docx"
+        ],
+        "group": { "kind": "build", "isDefault": false },
+        "problemMatcher": []
+    },
+    {
+        "label": "Protocol: Export to PDF (if LaTeX installed)",
+        "type": "shell",
+        "command": "pandoc",
+        "args": [
+            "docs/Sovereign-Data-Continuity-Protocol-v7.0.md",
+            "-o",
+            "docs/Sovereign-Data-Continuity-Protocol-v7.0.pdf",
+            "--from","markdown",
+            "--pdf-engine=xelatex"
+        ],
+        "group": "build",
+        "problemMatcher": []
+    },
+    {
+        "label": "Protocol: Open DOCX",
+        "type": "shell",
+        "command": "cmd",
+        "args": ["/c","start","","${workspaceFolder}\\docs\\Sovereign-Data-Continuity-Protocol-v7.0.docx"],
+        "problemMatcher": []
+    },
+    {
+        "label": "Protocol: Export DOCX + Open",
+        "dependsOn": [
+            "Protocol: Export to DOCX",
+            "Protocol: Open DOCX"
+        ],
+        "dependsOrder": "sequence"
+    },
+    {
+        "label": "Protocol: Open PDF",
+        "type": "shell",
+        "command": "cmd",
+        "args": ["/c","start","","${workspaceFolder}\\docs\\Sovereign-Data-Continuity-Protocol-v7.0.pdf"],
+        "problemMatcher": []
+    },
+    {
+        "label": "Protocol: Export PDF + Open",
+        "dependsOn": [
+            "Protocol: Export to PDF (if LaTeX installed)",
+            "Protocol: Open PDF"
+        ],
+        "dependsOrder": "sequence"
+    },
+    {
+        "label": "Pandoc: Current file → DOCX",
+        "type": "shell",
+        "command": "pandoc",
+        "args": [
+            "${file}",
+            "-o",
+            "${fileDirname}/${fileBasenameNoExtension}.docx"
+        ],
+        "group": "build",
+        "problemMatcher": []
+    },
+    {
+        "label": "Pandoc: Current file → PDF (if LaTeX installed)",
+        "type": "shell",
+        "command": "pandoc",
+        "args": [
+            "${file}",
+            "-o",
+            "${fileDirname}/${fileBasenameNoExtension}.pdf",
+            "--from","markdown",
+            "--pdf-engine=xelatex"
+        ],
+        "group": "build",
+        "problemMatcher": []
+    },
+    {
+        "label": "Blade: UI Dev (Electron)",
+        "type": "shell",
+        "command": "powershell",
+        "args": ["-NoProfile","-ExecutionPolicy","Bypass","-Command","cd \"${workspaceFolder}/blade_ui\"; npm install --no-audit --no-fund; npm run dev"],
+        "group": "build",
+        "presentation": {"echo": true, "reveal": "always", "panel": "shared"},
+        "problemMatcher": []
+    },
+    {
+        "label": "Blade: Generate Scanner Manifest",
+        "type": "shell",
+        "command": "powershell",
+        "args": ["-NoProfile","-ExecutionPolicy","Bypass","-File","${workspaceFolder}/scripts/Blade-Scanner.ps1"],
+        "group": "build",
+        "presentation": {"echo": true, "reveal": "always", "panel": "shared"},
+        "problemMatcher": []
+    },
+    {
+        "label": "Blade: Build Truth Index",
+        "type": "shell",
+        "command": "powershell",
+        "args": ["-NoProfile","-ExecutionPolicy","Bypass","-Command","python \"${workspaceFolder}/EliteTruthEngine/build_index.py\" --manifest C:/EliteTruthEngine/manifest.txt"],
+        "group": "build",
+        "presentation": {"echo": true, "reveal": "always", "panel": "shared"},
+        "problemMatcher": []
+    },
+    {
+        "label": "Blade: Start Truth Engine API",
+        "type": "shell",
+        "command": "powershell",
+        "args": ["-NoProfile","-ExecutionPolicy","Bypass","-Command","cd \"${workspaceFolder}/EliteTruthEngine\"; uvicorn server:app --host 127.0.0.1 --port 8000"],
+        "group": "build",
+        "presentation": {"echo": true, "reveal": "always", "panel": "shared"},
+        "problemMatcher": []
+    },
+    {
+        "label": "Blade: Generate Golden Master Hash Manifest",
+        "type": "shell",
+        "command": "powershell",
+        "args": ["-NoProfile","-ExecutionPolicy","Bypass","-File","${workspaceFolder}/scripts/Generate-GoldenMaster-Manifest.ps1"],
+        "group": "build",
+        "presentation": {"echo": true, "reveal": "always", "panel": "shared"},
+        "problemMatcher": []
+    },
+    {
+        "label": "Media: Transcribe Video (2-part)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile","-ExecutionPolicy","Bypass","-File",
+            "${workspaceFolder}/scripts/Transcribe-Video.ps1",
+            "-Input","${input:videoUrl}",
+            "-SplitParts","2",
+            "-ContinueOnError"
+        ],
+        "group": "build",
+        "presentation": {"echo": true, "reveal": "always", "panel": "shared"},
+        "problemMatcher": []
+    },
+    {
+        "label": "Media: G-Transcript Merge (2-part + Index)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile","-ExecutionPolicy","Bypass","-File",
+            "${workspaceFolder}/scripts/G-Transcript.ps1",
+            "-Inputs","${input:videoList}",
+            "-SplitParts","2",
+            "-EmitIndexJson",
+            "-ContinueOnError"
+        ],
+        "group": "build",
+        "presentation": {"echo": true, "reveal": "always", "panel": "shared"},
+        "problemMatcher": []
+    },
+    {
+        "label": "Pipeline: Full Media + Close-out (DryRun)",
+        "type": "shell",
+        "command": "powershell",
+        "args": ["-NoProfile","-ExecutionPolicy","Bypass","-File","${workspaceFolder}/scripts/run_all.ps1","-VideoInput","${input:videoUrl}","-VideoList","${input:videoList}"],
+        "presentation": {"reveal": "always","panel": "shared"},
+        "problemMatcher": []
+    },
+    {
+        "label": "Sovereign: Repo Reality Check",
+        "type": "shell",
+        "command": "powershell",
+        "args": ["-NoProfile","-ExecutionPolicy","Bypass","-File","scripts/Run-RepoRealityCheck.ps1","-VerboseOutput"],
+        "group": {"kind": "test","isDefault": true},
+        "presentation": {"reveal": "always","panel": "shared"},
+        "problemMatcher": []
+    },
+    {
+        "label": "Ledger: Merkle Determinism Test",
+        "type": "shell",
+        "command": "pytest",
+        "args": ["tests/test_merkle_determinism.py"],
+        "group": "test",
+        "presentation": {"reveal": "always", "panel": "shared"},
+        "problemMatcher": []
+    },
+    {
+        "label": "Fleet: Audit + Consolidate (Simple)",
+        "type": "shell",
+        "command": "powershell",
+        "args": ["-NoProfile","-ExecutionPolicy","Bypass","-File","${workspaceFolder}/scripts/RUN-FleetAuditAndConsolidate.ps1"],
+        "presentation": {"reveal": "always","panel": "shared"},
+        "group": "build"
+    },
+    {
+        "label": "Anchor: DRY-RUN (Harness)",
+        "type": "shell",
+        "command": "powershell",
+        "args": ["-NoProfile","-ExecutionPolicy","Bypass","-File","${workspaceFolder}/scripts/RUN-AnchoringHarness.ps1"],
+        "presentation": {"reveal": "always","panel": "shared"},
+        "group": "build"
+    },
+    {
+        "label": "Sovereign: Daily Safe Run (Simple)",
+        "dependsOn": ["Fleet: Audit + Consolidate (Simple)","Anchor: DRY-RUN (Harness)"],
+        "dependsOrder": "sequence",
+        "presentation": {"reveal": "always","panel": "shared"}
+    },
+    {
+        "label": "Sovereign: Dependency Manifest Generate",
+        "type": "shell",
+        "command": "powershell",
+        "args": ["-NoProfile","-ExecutionPolicy","Bypass","-File","${workspaceFolder}/scripts/Dependency-Manifest-Generate.ps1"],
+        "presentation": {"reveal": "always", "panel": "shared"},
+        "problemMatcher": []
+    },
+    {
+        "label": "Sovereign: Preflight Validate Dependencies",
+        "dependsOn": [
+            "Sovereign: Dependency Manifest Generate",
+            "Sovereign: Discovery Solutions",
+            "Sovereign: Healthcheck"
+        ],
+        "dependsOrder": "sequence"
+    },
+    {
+        "label": "Docs: Open Dependency Validation Flow",
+        "type": "shell",
+        "command": "cmd",
+        "args": ["/c","start","","${workspaceFolder}/docs/dependency_validation_flow.md"],
+        "problemMatcher": []
     }
   ],
   "inputs": [
