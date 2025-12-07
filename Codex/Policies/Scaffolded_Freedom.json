@@ -1,0 +1,50 @@
+{
+  "policy": "Scaffolded_Freedom_v3",
+  "version": "3.0",
+  "date": "2025-10-01",
+  "status": "ACTIVE",
+  
+  "restrictions": {
+    "porn": "BLOCKED",
+    "gambling_predatory": "BLOCKED",
+    "platforms_exploitative": "BLOCKED"
+  },
+  
+  "scaffolds": {
+    "education_modules": "ENABLED",
+    "dopamine_paths": "HEALTHY_SOURCES_ONLY",
+    "transition_triggers": "MATURITY_METRICS"
+  },
+  
+  "earnings": {
+    "caps": null,
+    "limits": "TRANSPARENCY_AND_HARM_NONE_ONLY",
+    "uplift": "UNCAPPED"
+  },
+  
+  "enforcement": {
+    "transparency_log": "CODEX_PUBLIC",
+    "metrics": [
+      "relapse_drop",
+      "prosperity_lift",
+      "false_positives"
+    ]
+  },
+  
+  "flags": {
+    "CONTENT.PORNOGRAPHY": "PROHIBITED",
+    "CONTENT.GAMBLING_PREDATORY": "PROHIBITED",
+    "CONTENT.PLATFORMS_EXPLOITATIVE": "PROHIBITED",
+    "EARNINGS.CAPS": "NONE",
+    "EARNINGS.LIMITS": "TRANSPARENCY_AND_HARM_NONE_ONLY"
+  },
+  
+  "targets": {
+    "prosperity_uplift_percent": 15,
+    "will_strength_uplift_percent": 25,
+    "quarterly_earnings_increase_gbp": 100000,
+    "addiction_cost_savings_gbp": 50000,
+    "relapse_reduction_percent": 25,
+    "youth_exposure_incidents": 0
+  }
+}
