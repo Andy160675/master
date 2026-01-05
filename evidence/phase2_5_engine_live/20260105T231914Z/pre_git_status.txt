@@ -1,0 +1,32 @@
+On branch main
+Your branch is ahead of 'origin/main' by 2 commits.
+  (use "git push" to publish your local commits)
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+	modified:   .gitignore
+	new file:   Governance/HANDOFF_BLOCK_20260105.md
+	new file:   Governance/VERIFICATION_CHECKLIST.md
+	new file:   Governance/__init__.py
+	modified:   Governance/phase2_5_engine/cash_ledger.py
+	modified:   Governance/phase2_5_engine/report_generator.py
+	new file:   scripts/ops/break_outreach0.ps1
+	new file:   scripts/ops/seal_phase2_5_engine.ps1
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   scripts/verify_ledger.py
+	modified:   src/core/router.py
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	.gitattributes
+	Blade2AI/
+	Governance/Memos/
+	Governance/docs/OUTREACH_TEMPLATES_A1.md
+	ap_unit_overlay/
+	docs/monetisation/
+	scripts/boardroom_memo_compile.py
+	scripts/roadmap_lock.ps1
+

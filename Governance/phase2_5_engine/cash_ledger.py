@@ -4,7 +4,7 @@ import json
 from datetime import datetime, timezone
 from decimal import Decimal, ROUND_HALF_UP
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
 
 
 def _utc_now_iso() -> str:
@@ -74,14 +74,13 @@ class CashLedger:
             },
         }
         data = _read_json(self.rules_path, default)
-        # Basic validation / normalization
         rules = data.get("rules", {})
         total = sum(float(v) for v in rules.values()) if rules else 0.0
         if rules and abs(total - 1.0) > 1e-6:
             raise ValueError(f"Allocation rules must sum to 1.0, got {total}")
         return data
 
-    def record_transaction(self, amount: float, category: str, lead_id: str) -> str:
+    def record_transaction(self, amount: Union[float, Decimal], category: str, lead_id: str) -> str:
         amount_dec = _quantize_money(Decimal(str(amount)))
         if amount_dec <= 0:
             raise ValueError("amount must be > 0")

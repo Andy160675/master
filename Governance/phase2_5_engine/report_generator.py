@@ -47,10 +47,7 @@ def _safe_git(cmd: list[str], cwd: Path) -> Optional[str]:
 
 
 def generate_daily_report(root: Optional[Path] = None) -> Path:
-    """Generate an auditable JSON evidence report under reports/.
-
-    Returns the path to the report.
-    """
+    """Generate an auditable JSON evidence report under reports/."""
 
     root = root or _repo_root()
 
@@ -65,7 +62,6 @@ def generate_daily_report(root: Optional[Path] = None) -> Path:
     if outreach_path.exists():
         with outreach_path.open("r", encoding="utf-8", newline="") as f:
             reader = csv.reader(f)
-            # Header + rows
             for i, _row in enumerate(reader):
                 if i == 0:
                     continue

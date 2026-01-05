@@ -1,0 +1,19 @@
+M  .gitignore
+A  Governance/HANDOFF_BLOCK_20260105.md
+A  Governance/VERIFICATION_CHECKLIST.md
+A  Governance/__init__.py
+M  Governance/phase2_5_engine/cash_ledger.py
+M  Governance/phase2_5_engine/report_generator.py
+A  scripts/ops/break_outreach0.ps1
+A  scripts/ops/seal_phase2_5_engine.ps1
+ M scripts/verify_ledger.py
+ M src/core/router.py
+?? .gitattributes
+?? Blade2AI/
+?? Governance/Memos/
+?? Governance/docs/OUTREACH_TEMPLATES_A1.md
+?? ap_unit_overlay/
+?? docs/monetisation/
+?? evidence/phase2_5_engine_live/20260105T231914Z/
+?? scripts/boardroom_memo_compile.py
+?? scripts/roadmap_lock.ps1

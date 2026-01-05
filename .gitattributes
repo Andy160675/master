@@ -1,0 +1,3 @@
+# Keep evidence capsules byte-for-byte stable across platforms (no EOL normalization)
+# This prevents CRLF/LF conversion from invalidating stored SHA256 manifests.
+evidence/** -text

@@ -1,10 +1,24 @@
 # Sovereign runtime data (never commit)
-data/
-Evidence/
+data/**
+!data/.gitkeep
+
+# Evidence (ignore by default, allowlist audit-grade capsules)
+evidence/*
+!evidence/
+!evidence/phase2_5_engine_live
+!evidence/phase2_5_engine_live/
+!evidence/phase2_5_engine_live/**
+!evidence/session-logs
+!evidence/session-logs/
+!evidence/session-logs/**
 Property/
 Governance/Logs/
 logs/
 *.log
+
+# Reports (never commit runtime reports)
+reports/**
+!reports/.gitkeep
 
 # Python
 __pycache__/
