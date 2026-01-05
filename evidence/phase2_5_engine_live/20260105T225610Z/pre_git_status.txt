@@ -1,0 +1,25 @@
+﻿On branch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   scripts/verify_ledger.py
+	modified:   src/core/router.py
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	Blade2AI/
+	Governance/Memos/
+	Governance/__init__.py
+	Governance/docs/OUTREACH_TEMPLATES_A1.md
+	Governance/phase2_5_engine/
+	ap_unit_overlay/
+	docs/monetisation/
+	reports/
+	scripts/boardroom_memo_compile.py
+	scripts/ops/
+	scripts/roadmap_lock.ps1
+
+no changes added to commit (use "git add" and/or "git commit -a")
