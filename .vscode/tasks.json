@@ -1488,10 +1488,10 @@
     {
         "label": "Ledger: Merkle Determinism Test",
         "type": "shell",
-        "command": "pytest",
-        "args": ["tests/test_merkle_determinism.py"],
+        "command": "${workspaceFolder}/env/Scripts/python.exe",
+        "args": ["-m", "pytest", "tests/test_merkle_determinism.py"],
         "group": "test",
-        "presentation": {"reveal": "always", "panel": "shared"},
+        "presentation": {"reveal": "always", "panel": "dedicated", "clear": true},
         "problemMatcher": []
     },
     {

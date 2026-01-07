@@ -45,22 +45,26 @@ jobs:
       - name: Double-run merkle root on synthetic ledger
         shell: bash
         run: |
+          set -euo pipefail
           echo '{"events":[{"id":1,"payload":"alpha"},{"id":2,"payload":"beta"},{"id":3,"payload":"gamma"}]}' > ledger_a.json
-          python scripts/compute_merkle_root.py ledger_a.json > first.txt 2>&1 || true
-          python scripts/compute_merkle_root.py ledger_a.json > second.txt 2>&1 || true
+          python scripts/compute_merkle_root.py ledger_a.json > first.txt 2>&1
+          python scripts/compute_merkle_root.py ledger_a.json > second.txt 2>&1
           echo "FIRST:" && cat first.txt
           echo "SECOND:" && cat second.txt
           diff first.txt second.txt || (echo 'Merkle root mismatch between runs' && exit 1)
 
-      - name: Reordered events should yield same root
+      - name: Reordered events should yield different root (order-sensitive)
         shell: bash
         run: |
+          set -euo pipefail
           echo '{"events":[{"id":3,"payload":"gamma"},{"id":2,"payload":"beta"},{"id":1,"payload":"alpha"}]}' > ledger_b.json
-          python scripts/compute_merkle_root.py ledger_b.json > third.txt 2>&1 || true
-          python scripts/compute_merkle_root.py ledger_a.json > baseline.txt 2>&1 || true
+          python scripts/compute_merkle_root.py ledger_b.json > third.txt 2>&1
+          python scripts/compute_merkle_root.py ledger_a.json > baseline.txt 2>&1
           echo "BASELINE:" && cat baseline.txt
           echo "REORDERED:" && cat third.txt
-          diff baseline.txt third.txt || (echo 'Merkle root changed after reorder (non-deterministic)' && exit 1)
+          if diff -q baseline.txt third.txt; then
+            echo 'Merkle root unexpectedly unchanged after reorder' && exit 1
+          fi
 
       - name: Summary
         run: echo 'Merkle determinism gate passed.'
