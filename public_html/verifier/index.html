@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Sovereign Verifier Surface</title>
+  </head>
+  <body>
+    <h1>Sovereign Verifier Surface</h1>
+
+    <p><strong>Status:</strong> presentation-only</p>
+    <p><strong>Posture:</strong> FREEZE (Class 2 surface)</p>
+
+    <h2>What this is</h2>
+    <p>
+      This site serves static artifacts for transparency and demonstration.
+      It is <strong>not</strong> an authority-bearing verifier-of-record.
+    </p>
+
+    <h2>What this is not</h2>
+    <ul>
+      <li>No operational verification</li>
+      <li>No trust claims</li>
+      <li>No server-side evidence generation</li>
+    </ul>
+
+    <h2>Demo artifacts (Phase 2A)</h2>
+    <ul>
+      <li><a href="demo/README.txt">demo/README.txt</a></li>
+      <li><a href="demo/valid.json">demo/valid.json</a></li>
+      <li><a href="demo/invalid.json">demo/invalid.json</a></li>
+    </ul>
+
+    <h2>Manifests (tamper test)</h2>
+    <p>
+      Manifests are intended to be uploaded via SSH/SFTP only and retrieved via SFTP/SCP for offline verification.
+    </p>
+    <ul>
+      <li><a href="manifests/">manifests/</a> (directory)</li>
+      <li><code>SOVEREIGN_MANIFEST.txt</code></li>
+      <li><code>SOVEREIGN_MANIFEST.sha256</code></li>
+    </ul>
+
+    <h2>Integrity model</h2>
+    <p>
+      Integrity is defined solely by SHA-256 hashes verified offline from retrieved files.
+      HTTP is not a verification channel.
+    </p>
+  </body>
+</html>
