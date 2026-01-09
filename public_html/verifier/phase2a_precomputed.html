@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Phase 2A — Precomputed Demo (Presentation Only)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <h1>Phase 2A — Precomputed Verification Demo</h1>
+
+    <p>
+      <strong>Status:</strong> presentation-only<br>
+      <strong>Authority:</strong> offline only<br>
+      <strong>Posture:</strong> FREEZE (Class 2 hostile surface)
+    </p>
+
+    <p>
+      This page documents a <strong>precomputed, offline</strong> verification demonstration.
+      No verification is performed on this server.
+      No hashes are computed here.
+      No verdicts are issued here.
+    </p>
+
+    <hr>
+
+    <h2>Demo Artifacts (Static)</h2>
+    <ul>
+      <li><a href="demo/valid.json">demo/valid.json</a> — expected result: <strong>PASS</strong></li>
+      <li><a href="demo/invalid.json">demo/invalid.json</a> — expected result: <strong>FAIL</strong></li>
+      <li><a href="demo/README.txt">demo/README.txt</a> — narrative (offline)</li>
+    </ul>
+
+    <hr>
+
+    <h2>Method (Excerpt from Offline Evidence)</h2>
+    <p>
+      The following method and expected outcomes are recorded offline as evidence.
+      This page presents them for transparency only.
+    </p>
+
+    <pre>
+Verification method:
+
+- Canonical JSON for `payload`: `json.dumps(payload, separators=(",", ":"))`
+- Hash: `SHA-256(utf8(canonical_payload_json))`
+
+Expected results:
+
+- `valid.json`   → PASS (declared payload hash matches recomputed)
+- `invalid.json` → FAIL (declared payload hash does not match recomputed)
+    </pre>
+
+    <p>
+      Source of truth (offline evidence log):
+      <code>evidence/session-logs/PHASE2A_DEMO_EVIDENCE_2026-01-09T023954Z.md</code>
+    </p>
+
+    <hr>
+
+    <h2>Important Limits</h2>
+    <ul>
+      <li>This page does <strong>not</strong> verify anything.</li>
+      <li>This page does <strong>not</strong> fetch external artifacts.</li>
+      <li>This page does <strong>not</strong> emit receipts or signatures.</li>
+      <li>HTTP access is for viewing only; verification (if any) remains offline.</li>
+    </ul>
+
+    <hr>
+
+    <p><a href="index.html">Back to verifier overview</a></p>
+  </body>
+</html>
