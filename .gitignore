@@ -28,4 +28,5 @@ __pycache__/
 
 # VS Code
 # .vscode/ (now versioned)
+.vscode/sftp.json
 .history/

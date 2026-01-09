@@ -1,0 +1,14 @@
+{
+  "name": "siteground",
+  "host": "yourdomain.com",
+  "protocol": "sftp",
+  "port": 22,
+  "username": "your_sg_username",
+
+  // Prefer SSH keys via agent/Pageant; avoid storing secrets here.
+  // If you must use a password temporarily, put it ONLY in .vscode/sftp.json (ignored by git).
+  // "password": "YOUR_PASSWORD",
+
+  "remotePath": "/home/your_sg_username/public_html/verifier",
+  "uploadOnSave": false
+}
