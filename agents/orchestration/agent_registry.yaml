@@ -1,0 +1,51 @@
+[
+  {
+    "name": "inventory_local",
+    "description": "Scan local workspace files (stdlib-only), emit AI_LOCAL_INVENTORY.csv",
+    "type": "python",
+    "entry": "agents/inventory/inventory_ai_files.py",
+    "args": []
+  },
+  {
+    "name": "inventory_git",
+    "description": "List tracked files via git ls-files, emit AI_GIT_INVENTORY.txt",
+    "type": "powershell",
+    "entry": "agents/inventory/scan_git_repo.ps1",
+    "args": []
+  },
+  {
+    "name": "merge_topography",
+    "description": "Merge local+git(+optional SiteGround) inventories into AI_SYSTEM_TOPOGRAPHY.md",
+    "type": "python",
+    "entry": "agents/inventory/merge_topography.py",
+    "args": []
+  },
+  {
+    "name": "verify_payload",
+    "description": "Offline payload verifier (canonical JSON SHA-256) for demo/testing",
+    "type": "python",
+    "entry": "agents/verifier/verify_payload.py",
+    "args": ["public_html/verifier/demo/valid.json"]
+  },
+  {
+    "name": "train_offline",
+    "description": "Offline training placeholder (no deployment)",
+    "type": "python",
+    "entry": "agents/training/train_offline.py",
+    "args": []
+  },
+  {
+    "name": "eval_suite",
+    "description": "Evaluation placeholder (metrics only)",
+    "type": "python",
+    "entry": "agents/training/eval_suite.py",
+    "args": []
+  },
+  {
+    "name": "promotion_gate",
+    "description": "Hard stop: deployment blocked without registry/promotions.yaml approval",
+    "type": "python",
+    "entry": "agents/training/promotion_gate.py",
+    "args": []
+  }
+]

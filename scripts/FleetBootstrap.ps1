@@ -1,9 +1,42 @@
 param(
   [string[]]$Targets = @('pc-1','pc-2','pc-3','pc-4'),
   [string]$NasRoot = "\\dxp4800plus-67ba\ops",
+  [switch]$SkipNasCheck,
   [switch]$RunNow,
   [int]$SelfHealIntervalSec = 300
 )
+
+function Assert-NasAvailable {
+  param(
+    [Parameter(Mandatory=$true)][string]$NasRoot,
+    [switch]$SkipNasCheck
+  )
+
+  if ($SkipNasCheck) {
+    Write-Warning "[NAS] SkipNasCheck enabled; continuing without NAS preflight."
+    return
+  }
+
+  if (-not $NasRoot.StartsWith('\\')) {
+    throw "NasRoot must be a UNC path (\\\\server\\share). Got: $NasRoot"
+  }
+
+  $nasHost = ($NasRoot -split '\\')[2]
+  if (-not $nasHost) {
+    throw "Cannot parse NAS host from NasRoot: $NasRoot"
+  }
+
+  $pingOk = Test-Connection -ComputerName $nasHost -Count 1 -Quiet -ErrorAction SilentlyContinue
+  if (-not $pingOk) {
+    throw "Cannot reach NAS host '$nasHost' (ping failed). NasRoot=$NasRoot"
+  }
+
+  if (-not (Test-Path -LiteralPath $NasRoot)) {
+    throw "Cannot access NAS share path. NasRoot=$NasRoot"
+  }
+}
+
+Assert-NasAvailable -NasRoot $NasRoot -SkipNasCheck:$SkipNasCheck
 
 $QueueRoot = Join-Path $NasRoot 'Queue'
 $PkgRoot   = Join-Path $NasRoot 'Packages'
