@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Sovereign Verifier — Demo Shell (Static)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      body { max-width: 900px; margin: 24px auto; padding: 0 16px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; line-height: 1.4; }
+      header { margin-bottom: 16px; }
+      .card { border: 1px solid #ccc; border-radius: 8px; padding: 16px; margin: 12px 0; }
+      .muted { opacity: 0.9; }
+      .kv { margin: 0; }
+      .kv strong { display: inline-block; min-width: 92px; }
+      a { word-break: break-word; }
+      code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Sovereign Verifier — Demo Shell</h1>
+      <p class="muted">Static presentation wrapper. No JS. No backend. No mutation.</p>
+    </header>
+
+    <section class="card">
+      <p class="kv"><strong>Status:</strong> presentation-only</p>
+      <p class="kv"><strong>Authority:</strong> offline only</p>
+      <p class="kv"><strong>Posture:</strong> FREEZE (Class 2 surface)</p>
+    </section>
+
+    <section class="card">
+      <h2>Recommended demo</h2>
+      <p>
+        Open the precomputed Phase 2A walkthrough:
+        <a href="phase2a_precomputed.html">phase2a_precomputed.html</a>
+      </p>
+      <p class="muted">
+        This page shows expected PASS/FAIL outcomes and links to static artifacts.
+        It does not compute hashes or issue verdicts.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Artifacts</h2>
+      <ul>
+        <li><a href="demo/valid.json">demo/valid.json</a> — expected: <strong>PASS</strong></li>
+        <li><a href="demo/invalid.json">demo/invalid.json</a> — expected: <strong>FAIL</strong></li>
+        <li><a href="demo/README.txt">demo/README.txt</a></li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Limits</h2>
+      <ul>
+        <li>No operational verification is performed here.</li>
+        <li>No trust claims are made by the surface.</li>
+        <li>HTTP is not a verification channel.</li>
+      </ul>
+    </section>
+
+    <p class="muted"><a href="index.html">Back to verifier overview</a></p>
+  </body>
+</html>
