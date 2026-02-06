@@ -1,0 +1,6 @@
+# Ignore everything in this folder by default
+*
+
+# Keep the folder + documentation in the repo
+!.gitignore
+!README.md

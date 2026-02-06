@@ -1,0 +1,24 @@
+services:
+  unbound:
+    image: mvance/unbound:1.20.0
+    container_name: sovereign-unbound
+    restart: unless-stopped
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+    volumes:
+      - ./unbound/unbound.conf:/opt/unbound/etc/unbound/unbound.conf:ro
+      - ./data/unbound_logs:/var/log/unbound
+
+  dns-audit:
+    image: python:3.12-slim
+    container_name: sovereign-dns-audit
+    restart: unless-stopped
+    depends_on:
+      - unbound
+    working_dir: /app
+    volumes:
+      - ./audit:/app:ro
+      - ./data/unbound_logs:/logs
+      - ./data:/data
+    command: ["python", "-u", "/app/dns_audit_tail.py", "--log", "/logs/unbound.log", "--ledger", "/data/audit_chain.jsonl", "--agent", "dns_resolver", "--track", "insider"]

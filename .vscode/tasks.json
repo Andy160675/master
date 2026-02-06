@@ -1115,6 +1115,276 @@
         "presentation": {"reveal": "always", "panel": "new"}
     },
     {
+        "label": "Ops: Verify Evidence Agreement (Viewer)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/ops/Verify-EvidenceAgreement.ps1",
+            "-ShareRoot",
+            "${input:evidenceDrive}:\\",
+            "-BaselinesSubdir",
+            "${input:evidenceBaselinesSubdir}",
+            "-NodeIds",
+            "${input:evidenceNodeIds}"
+        ],
+        "problemMatcher": [],
+        "presentation": {"reveal": "always", "panel": "new"}
+    },
+    {
+        "label": "Ops: Verify Evidence Agreement (Gate)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/ops/Verify-EvidenceAgreement.ps1",
+            "-ShareRoot",
+            "${input:evidenceDrive}:\\",
+            "-BaselinesSubdir",
+            "${input:evidenceBaselinesSubdir}",
+            "-NodeIds",
+            "${input:evidenceNodeIds}",
+            "-Gate"
+        ],
+        "problemMatcher": [],
+        "presentation": {"reveal": "always", "panel": "new"}
+    },
+    {
+        "label": "Ops: Mirror IDE Shared Folder (Copy)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/ops/Mirror-Folder.ps1",
+            "-Source",
+            "${workspaceFolder}/ide_shared",
+            "-Destination",
+            "${input:mirrorIdeSharedDest}",
+            "-Mode",
+            "Copy"
+        ],
+        "problemMatcher": [],
+        "presentation": {"reveal": "always", "panel": "new"}
+    },
+    {
+        "label": "Ops: Mirror Repo Snapshot (Copy, safe excludes)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/ops/Mirror-Folder.ps1",
+            "-Source",
+            "${workspaceFolder}",
+            "-Destination",
+            "${input:mirrorRepoDest}",
+            "-Mode",
+            "Copy",
+            "-ExcludeDirs",
+            ".git",
+            "env",
+            "node_modules",
+            "__pycache__",
+            "validation",
+            "evidence"
+        ],
+        "problemMatcher": [],
+        "presentation": {"reveal": "always", "panel": "new"}
+    },
+    {
+        "label": "Ops: Mirror Repo Snapshot (MIRROR, deletes extras)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/ops/Mirror-Folder.ps1",
+            "-Source",
+            "${workspaceFolder}",
+            "-Destination",
+            "${input:mirrorRepoDest}",
+            "-Mode",
+            "Mirror",
+            "-ExcludeDirs",
+            ".git",
+            "env",
+            "node_modules",
+            "__pycache__",
+            "validation",
+            "evidence",
+            "-Gate"
+        ],
+        "problemMatcher": [],
+        "presentation": {"reveal": "always", "panel": "new"}
+    },
+    {
+        "label": "Ops: Mirror Git Repo (bare mirror)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/ops/Mirror-GitRepo.ps1",
+            "-SourceRepoPath",
+            "${workspaceFolder}",
+            "-DestinationPath",
+            "${input:mirrorGitDest}"
+        ],
+        "problemMatcher": [],
+        "presentation": {"reveal": "always", "panel": "new"}
+    },
+    {
+        "label": "Ops: Convo Pull (Rebase, Once)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-Command",
+            "Set-Location -LiteralPath '${workspaceFolder}'; git pull --rebase ${input:convoRemote} ${input:convoBranch}"
+        ],
+        "problemMatcher": [],
+        "presentation": {"reveal": "always", "panel": "new"}
+    },
+    {
+        "label": "Ops: Convo Send Message (Commit+Push Once)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/ops/Sync-ConvoSend.ps1",
+            "-RepoRoot",
+            "${workspaceFolder}",
+            "-ConvoDir",
+            "${workspaceFolder}/sync_conversation",
+            "-AuthorId",
+            "${input:convoAuthorId}",
+            "-Message",
+            "${input:convoMessage}",
+            "-Remote",
+            "${input:convoRemote}",
+            "-Branch",
+            "${input:convoBranch}",
+            "-AutoStash"
+        ],
+        "problemMatcher": [],
+        "presentation": {"reveal": "always", "panel": "new"}
+    },
+    {
+        "label": "Ops: Convo Sync Loop (Pull/Rebase/Auto-commit/Push)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/ops/Sync-ConvoLoop.ps1",
+            "-RepoRoot",
+            "${workspaceFolder}",
+            "-ConvoDir",
+            "${workspaceFolder}/sync_conversation",
+            "-AuthorId",
+            "${input:convoAuthorId}",
+            "-Remote",
+            "${input:convoRemote}",
+            "-Branch",
+            "${input:convoBranch}",
+            "-IntervalSeconds",
+            "${input:convoSyncInterval}",
+            "-AutoStash"
+        ],
+        "isBackground": true,
+        "problemMatcher": [],
+        "presentation": {"reveal": "always", "panel": "new"}
+    },
+    {
+        "label": "Ops: Sovereign DNS Preflight (SSH)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/ops/SovereignDNS-Preflight.ps1",
+            "-Host",
+            "${input:dnsNasHost}",
+            "-User",
+            "${input:dnsNasUser}",
+            "-IdentityFile",
+            "${input:dnsNasIdentityFile}",
+            "-Port",
+            "${input:dnsNasSshPort}"
+        ],
+        "problemMatcher": [],
+        "presentation": {"reveal": "always", "panel": "new"}
+    },
+    {
+        "label": "Ops: Deploy Sovereign DNS (Docker via SSH)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/ops/Deploy-SovereignDNS-Docker.ps1",
+            "-Host",
+            "${input:dnsNasHost}",
+            "-User",
+            "${input:dnsNasUser}",
+            "-IdentityFile",
+            "${input:dnsNasIdentityFile}",
+            "-Port",
+            "${input:dnsNasSshPort}",
+            "-RemoteDir",
+            "${input:dnsNasRemoteDir}",
+            "-Gate"
+        ],
+        "problemMatcher": [],
+        "presentation": {"reveal": "always", "panel": "new"}
+    },
+    {
+        "label": "Ops: Test Sovereign DNS (Client Viewer)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/ops/Test-SovereignDNS.ps1",
+            "-ServerIp",
+            "${input:dnsNasHost}",
+            "-Name",
+            "${input:dnsTestName}",
+            "-Type",
+            "${input:dnsTestType}"
+        ],
+        "problemMatcher": [],
+        "presentation": {"reveal": "always", "panel": "new"}
+    },
+    {
         "label": "Health: Pentad Resilience (Viewer)",
         "type": "shell",
         "command": "powershell",
@@ -2489,6 +2759,96 @@
             "type": "promptString",
             "description": "Node ids to check for agreement (comma/space separated)",
             "default": "PC1 PC2 PC3 PC4"
+        },
+        {
+            "id": "mirrorIdeSharedDest",
+            "type": "promptString",
+            "description": "Destination folder for ide_shared mirror (copy)",
+            "default": "C:/Users/user/ide_shared_mirror"
+        },
+        {
+            "id": "mirrorRepoDest",
+            "type": "promptString",
+            "description": "Destination folder for repo snapshot mirror (copy/mirror)",
+            "default": "C:/Users/user/master_repo_mirror"
+        },
+        {
+            "id": "mirrorGitDest",
+            "type": "promptString",
+            "description": "Destination path for a bare git mirror (e.g., C:/Users/user/master.git)",
+            "default": "C:/Users/user/master.git"
+        },
+        {
+            "id": "convoAuthorId",
+            "type": "promptString",
+            "description": "Author id used for conversation messages",
+            "default": "${env:COMPUTERNAME}"
+        },
+        {
+            "id": "convoRemote",
+            "type": "promptString",
+            "description": "Git remote to sync against",
+            "default": "origin"
+        },
+        {
+            "id": "convoBranch",
+            "type": "promptString",
+            "description": "Git branch to sync",
+            "default": "main"
+        },
+        {
+            "id": "convoSyncInterval",
+            "type": "promptString",
+            "description": "Sync interval seconds (min 5)",
+            "default": "15"
+        },
+        {
+            "id": "convoMessage",
+            "type": "promptString",
+            "description": "Message to send (creates a new file under sync_conversation/messages/<AuthorId>/)",
+            "default": "ping"
+        },
+        {
+            "id": "dnsNasHost",
+            "type": "promptString",
+            "description": "NAS IP/host for Sovereign DNS (Phase 2)",
+            "default": "192.168.4.114"
+        },
+        {
+            "id": "dnsNasUser",
+            "type": "promptString",
+            "description": "SSH username for NAS",
+            "default": "root"
+        },
+        {
+            "id": "dnsNasIdentityFile",
+            "type": "promptString",
+            "description": "Path to SSH private key (leave blank if using agent)",
+            "default": ""
+        },
+        {
+            "id": "dnsNasSshPort",
+            "type": "promptString",
+            "description": "SSH port for NAS",
+            "default": "22"
+        },
+        {
+            "id": "dnsNasRemoteDir",
+            "type": "promptString",
+            "description": "Remote install directory on NAS",
+            "default": "/opt/sovereign-dns"
+        },
+        {
+            "id": "dnsTestName",
+            "type": "promptString",
+            "description": "DNS name to query during client test",
+            "default": "example.com"
+        },
+        {
+            "id": "dnsTestType",
+            "type": "promptString",
+            "description": "DNS record type for client test",
+            "default": "A"
         },
     {
       "id": "videoList",
