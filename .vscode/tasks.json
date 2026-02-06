@@ -20,6 +20,57 @@
         "problemMatcher": []
     },
     {
+        "label": "Fleet Inventory: Run Locally (This Node)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/ops/Run-NodeInventory.ps1"
+        ],
+        "problemMatcher": [],
+        "presentation": {
+            "reveal": "always",
+            "panel": "new"
+        }
+    },
+    {
+        "label": "Fleet Inventory: Invoke (Coordinator)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/ops/Invoke-FleetInventory.ps1"
+        ],
+        "problemMatcher": [],
+        "presentation": {
+            "reveal": "always",
+            "panel": "new"
+        }
+    },
+    {
+        "label": "Fleet Inventory: Collect + Summary (Coordinator)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/ops/Collect-FleetInventory.ps1"
+        ],
+        "problemMatcher": [],
+        "presentation": {
+            "reveal": "always",
+            "panel": "new"
+        }
+    },
+    {
         "label": "Sovereign: Discovery Repo Remotes",
         "type": "shell",
         "command": "powershell",
@@ -237,7 +288,7 @@
             "-ShowDetailedMetrics",
             "-PingCount",
             "8"
-        },
+        ],
         "group": "test",
         "presentation": {
             "echo": true,
@@ -281,6 +332,27 @@
             "-File",
             "${workspaceFolder}/scripts/FleetBootstrap.ps1",
             "-RunNow"
+        ],
+        "group": "build",
+        "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "focus": false,
+            "panel": "shared"
+        },
+        "problemMatcher": []
+    },
+    {
+        "label": "Fleet: Sync All PCs + NAS",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/Sync-Fleet.ps1",
+            "-Confirm"
         ],
         "group": "build",
         "presentation": {
@@ -898,6 +970,303 @@
         }
     },
     {
+        "label": "Ops: Check External TCP (Viewer)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/ops/Check-ExternalTcp.ps1",
+            "-Top",
+            "15"
+        ],
+        "problemMatcher": [],
+        "presentation": {
+            "reveal": "always",
+            "panel": "new"
+        }
+    },
+    {
+        "label": "Ops: Check External TCP (Gate)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/ops/Check-ExternalTcp.ps1",
+            "-Top",
+            "15",
+            "-FailOnExternal"
+        ],
+        "problemMatcher": [],
+        "presentation": {
+            "reveal": "always",
+            "panel": "new"
+        }
+    },
+    {
+        "label": "Ops: Scan Subnet 192.168.4.x (Viewer)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/ops/Scan-SubnetHostnames.ps1",
+            "-Subnet",
+            "192.168.4",
+            "-StartHost",
+            "1",
+            "-EndHost",
+            "254",
+            "-TimeoutMs",
+            "1000",
+            "-ThrottleLimit",
+            "50",
+            "-ResolveDns"
+        ],
+        "problemMatcher": [],
+        "presentation": {
+            "reveal": "always",
+            "panel": "new"
+        }
+    },
+    {
+        "label": "Ops: Mount Evidence Share (S:)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/ops/Mount-EvidenceShare.ps1",
+            "-UncPath",
+            "${input:evidenceUnc}",
+            "-DriveLetter",
+            "${input:evidenceDrive}",
+            "-Persistent"
+        ],
+        "problemMatcher": [],
+        "presentation": {"reveal": "always", "panel": "new"}
+    },
+    {
+        "label": "Ops: Capture Evidence Baseline (S:)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/ops/Capture-EvidenceBaseline.ps1",
+            "-RootPath",
+            "${input:evidenceRoot}",
+            "-MaxFiles",
+            "${input:evidenceMaxFiles}"
+        ],
+        "problemMatcher": [],
+        "presentation": {"reveal": "always", "panel": "new"}
+    },
+    {
+        "label": "Ops: Capture Evidence Baseline → Publish to Share (per NodeId)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/ops/Publish-EvidenceBaseline.ps1",
+            "-RootPath",
+            "${input:evidenceRoot}",
+            "-NodeId",
+            "${input:evidencePublishNodeId}",
+            "-BaselinesSubdir",
+            "${input:evidenceBaselinesSubdir}",
+            "-MaxFiles",
+            "${input:evidenceMaxFiles}"
+        ],
+        "problemMatcher": [],
+        "presentation": {"reveal": "always", "panel": "new"}
+    },
+    {
+        "label": "Ops: Compare Evidence Baselines (Gate on mismatch)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/ops/Compare-EvidenceBaselines.ps1",
+            "-BaselineA",
+            "${input:evidenceBaselineA}",
+            "-BaselineB",
+            "${input:evidenceBaselineB}",
+            "-Gate"
+        ],
+        "problemMatcher": [],
+        "presentation": {"reveal": "always", "panel": "new"}
+    },
+    {
+        "label": "Health: Pentad Resilience (Viewer)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/health/Test-PentadResilience.ps1",
+            "-EmitJson"
+        ],
+        "presentation": {"reveal": "always", "panel": "shared"},
+        "problemMatcher": []
+    },
+    {
+        "label": "Health: Pentad Resilience (Gate)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/health/Test-PentadResilience.ps1",
+            "-EmitJson",
+            "-Gate"
+        ],
+        "presentation": {"reveal": "always", "panel": "shared"},
+        "problemMatcher": []
+    },
+    {
+        "label": "Fleet Inventory: Collect via SSH (Linux/NAS)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/ops/Run-SSHInventory.ps1"
+        ],
+        "presentation": {"reveal": "always", "panel": "shared"},
+        "problemMatcher": []
+    },
+    {
+        "label": "Ops: TCP Snapshot (CSV) - Before",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/ops/Check-ExternalTcp.ps1",
+            "-ExportCsv",
+            "${workspaceFolder}/validation/net_snapshot_before.csv"
+        ],
+        "problemMatcher": [],
+        "presentation": {
+            "reveal": "always",
+            "panel": "new"
+        }
+    },
+    {
+        "label": "Ops: TCP Snapshot (CSV) - After",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/ops/Check-ExternalTcp.ps1",
+            "-ExportCsv",
+            "${workspaceFolder}/validation/net_snapshot_after.csv"
+        ],
+        "problemMatcher": [],
+        "presentation": {
+            "reveal": "always",
+            "panel": "new"
+        }
+    },
+    {
+        "label": "Secrets: Encrypt GitHub PAT (DPAPI)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/Sovereign-PAT-Encrypt.ps1"
+        ],
+        "problemMatcher": [],
+        "presentation": {
+            "reveal": "always",
+            "panel": "new"
+        }
+    },
+    {
+        "label": "Secrets: Verify GitHub PAT (Viewer Only)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/Sovereign-PAT-Verify.ps1"
+        ],
+        "problemMatcher": [],
+        "presentation": {
+            "reveal": "always",
+            "panel": "new"
+        }
+    },
+    {
+        "label": "Ops: Secret Scan (Viewer)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/ops/Check-Secrets.ps1"
+        ],
+        "problemMatcher": [],
+        "presentation": {
+            "reveal": "always",
+            "panel": "new"
+        }
+    },
+    {
+        "label": "Ops: Secret Scan (Gate)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/ops/Check-Secrets.ps1",
+            "-FailOnFindings"
+        ],
+        "problemMatcher": [],
+        "presentation": {
+            "reveal": "always",
+            "panel": "new"
+        }
+    },
+    {
         "label": "Close-out: Master End-State (Auditable)",
         "type": "shell",
         "command": "powershell",
@@ -971,7 +1340,7 @@
             "-ManifestFile",
             "${workspaceFolder}/repos.manifest.txt",
             "-DestRoot",
-            "Z:/Forge/apps",
+            "${workspaceFolder}/apps",
             "-PullIfExists"
         ],
         "group": "build",
@@ -1495,6 +1864,225 @@
         "problemMatcher": []
     },
     {
+        "label": "Audit: Node Audit (Standard Drop)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/audit_node.ps1",
+            "-NodeId",
+            "${input:auditNodeId}",
+            "-EmitStandardDrop"
+        ],
+        "presentation": {"reveal": "always", "panel": "shared"},
+        "group": "build",
+        "problemMatcher": []
+    },
+    {
+        "label": "Fleet: Trinity Status (Phase 7)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/fleet/orchestrate_fleet.ps1",
+            "-Command",
+            "Status"
+        ],
+        "presentation": {"reveal": "always", "panel": "shared"},
+        "group": "build",
+        "problemMatcher": []
+    },
+    {
+        "label": "Fleet: Trinity Verify (Phase 7)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/fleet/orchestrate_fleet.ps1",
+            "-Command",
+            "Verify"
+        ],
+        "presentation": {"reveal": "always", "panel": "shared"},
+        "group": "build",
+        "problemMatcher": []
+    },
+    {
+        "label": "Fleet: Trinity Lint (Phase 7)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/fleet/orchestrate_fleet.ps1",
+            "-Command",
+            "Lint"
+        ],
+        "presentation": {"reveal": "always", "panel": "shared"},
+        "group": "build",
+        "problemMatcher": []
+    },
+    {
+        "label": "Fleet: Trinity Seal Manifest (Phase 7)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/fleet/orchestrate_fleet.ps1",
+            "-Command",
+            "Seal"
+        ],
+        "presentation": {"reveal": "always", "panel": "shared"},
+        "group": "build",
+        "problemMatcher": []
+    },
+    {
+        "label": "Fleet: Deploy Capabilities (30s intervals, Safe Mode)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/ops/deploy_capabilities_interval.ps1",
+            "-IntervalSec",
+            "${input:capIntervalSec}",
+            "-ManifestStamp",
+            "${input:capManifestStamp}",
+            "-SkipNas",
+            "-SkipPing"
+        ],
+        "presentation": {"reveal": "always", "panel": "shared"},
+        "group": "build",
+        "problemMatcher": []
+    },
+    {
+        "label": "Fleet: Deploy Capabilities (30s intervals, Full)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/ops/deploy_capabilities_interval.ps1",
+            "-IntervalSec",
+            "${input:capIntervalSec}",
+            "-ManifestStamp",
+            "${input:capManifestStamp}"
+        ],
+        "presentation": {"reveal": "always", "panel": "shared"},
+        "group": "build",
+        "problemMatcher": []
+    },
+    {
+        "label": "Sovereign: Safe Ramp Deploy All Phases (30s, Best-effort)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/ops/safe_ramp_deploy_all.ps1",
+            "-IntervalSec",
+            "${input:capIntervalSec}",
+            "-ContinueOnError",
+            "-SkipRemote"
+        ],
+        "presentation": {"reveal": "always", "panel": "shared"},
+        "group": "build",
+        "problemMatcher": []
+    },
+    {
+        "label": "Sovereign: Verify All (Integrity Scorecard)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/ops/Verify-All.ps1"
+        ],
+        "presentation": {"reveal": "always", "panel": "shared"},
+        "group": "build",
+        "problemMatcher": []
+    },
+    {
+        "label": "Sovereign: Validate Sovereignty (Air-gap, Scan Only)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/validate_sovereignty.ps1",
+            "-All"
+        ],
+        "presentation": {"reveal": "always", "panel": "shared"},
+        "group": "security",
+        "problemMatcher": []
+    },
+    {
+        "label": "Sovereign: Deploy Final (Deployment Gate)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/ops/deploy_final.ps1",
+            "-Confirm",
+            "-IntervalSec",
+            "${input:capIntervalSec}",
+            "-ManifestStamp",
+            "${input:capManifestStamp}",
+            "-SkipRemote",
+            "-ContinueOnError"
+        ],
+        "presentation": {"reveal": "always", "panel": "shared"},
+        "group": "build",
+        "problemMatcher": []
+    },
+    {
+        "label": "Sovereign: 24x7 Ops Loop (Deployment Gate)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/ops/run_24x7_ops.ps1",
+            "-Confirm",
+            "-Continuous",
+            "-IntervalSec",
+            "${input:capIntervalSec}",
+            "-SleepBetweenCyclesSec",
+            "${input:opsSleepBetweenCyclesSec}"
+        ],
+        "presentation": {"reveal": "always", "panel": "shared"},
+        "group": "build",
+        "problemMatcher": []
+    },
+    {
         "label": "Fleet: Audit + Consolidate (Simple)",
         "type": "shell",
         "command": "powershell",
@@ -1577,8 +2165,228 @@
       "group": "test",
       "presentation": {"reveal": "always", "panel": "shared"},
       "problemMatcher": []
-    }
-  ],
+        },
+        {
+            "label": "Citadel: Build (Local Integrity)",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "${workspaceFolder}/scripts/ops/Build-Citadel-Local.ps1"
+            ],
+            "presentation": {"reveal": "always", "panel": "shared"},
+            "problemMatcher": []
+        },
+        {
+            "label": "Boardroom: Governance Cockpit (Streamlit 8501)",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-Command",
+                "C:/Users/user/master/env/Scripts/python.exe -m streamlit run boardroom/boardroom_app.py --server.port 8501 --server.address 127.0.0.1"
+            ],
+            "isBackground": true,
+            "presentation": {"reveal": "always", "panel": "shared"},
+            "problemMatcher": []
+        },
+        {
+            "label": "Boardroom: Shell (Electron)",
+            "type": "shell",
+            "command": "cmd",
+            "args": [
+                "/c",
+                "cd /d ${workspaceFolder}\\blade_ui && npm.cmd install && npm.cmd run start"
+            ],
+            "isBackground": true,
+            "presentation": {"reveal": "always", "panel": "shared"},
+            "problemMatcher": []
+        },
+        {
+            "label": "Ops: Git + JetBrains Sync Loop (Jarvus DD Pack)",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "${workspaceFolder}/scripts/ops/Sync-Git-JetBrains-Loop.ps1",
+                "-RepoPath",
+                "${workspaceFolder}/apps/jarvus-trinity-agents",
+                "-FreezeCommit",
+                "dc46471",
+                "-IntervalSeconds",
+                "60",
+                "-JetBrainsProjectPath",
+                "${input:jetBrainsProjectPath}"
+            ],
+            "presentation": {"reveal": "always", "panel": "shared"},
+            "problemMatcher": []
+        },
+        {
+            "label": "Ops: Git Sync (All Repos, Safe, Once)",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "${workspaceFolder}/scripts/ops/Sync-Git-Loop-All.ps1",
+                "-Once",
+                "-PullIfClean",
+                "-EnableJarvusDueDiligenceReconcile",
+                "-JarvusFreezeCommit",
+                "dc46471",
+                "-RootsSpec",
+                "${workspaceFolder};${workspaceFolder}/apps;${input:gitSyncExtraRoot}"
+            ],
+            "presentation": {"reveal": "always", "panel": "shared"},
+            "problemMatcher": []
+        },
+        {
+            "label": "Ops: Git Sync Loop (All Repos, Safe)",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "${workspaceFolder}/scripts/ops/Sync-Git-Loop-All.ps1",
+                "-IntervalSeconds",
+                "${input:gitSyncIntervalSec}",
+                "-PullIfClean",
+                "-EnableJarvusDueDiligenceReconcile",
+                "-JarvusFreezeCommit",
+                "dc46471",
+                "-RootsSpec",
+                "${workspaceFolder};${workspaceFolder}/apps;${input:gitSyncExtraRoot}"
+            ],
+            "presentation": {"reveal": "always", "panel": "shared"},
+            "problemMatcher": []
+        },
+        {
+            "label": "R&D: List Projects",
+            "type": "shell",
+            "command": "python",
+            "args": [
+                "-m",
+                "pentad_rnd.cli",
+                "list"
+            ],
+            "presentation": {"reveal": "always", "panel": "shared"},
+            "problemMatcher": []
+        },
+        {
+            "label": "R&D: Create Project",
+            "type": "shell",
+            "command": "python",
+            "args": [
+                "-m",
+                "pentad_rnd.cli",
+                "create-project",
+                "--title",
+                "${input:rndTitle}",
+                "--description",
+                "${input:rndDescription}",
+                "--category",
+                "${input:rndCategory}"
+            ],
+            "presentation": {"reveal": "always", "panel": "shared"},
+            "problemMatcher": []
+        },
+        {
+            "label": "R&D: Status",
+            "type": "shell",
+            "command": "python",
+            "args": [
+                "-m",
+                "pentad_rnd.cli",
+                "status",
+                "--project-id",
+                "${input:rndProjectId}"
+            ],
+            "presentation": {"reveal": "always", "panel": "shared"},
+            "problemMatcher": []
+        },
+        {
+            "label": "R&D: Advance Phase",
+            "type": "shell",
+            "command": "python",
+            "args": [
+                "-m",
+                "pentad_rnd.cli",
+                "advance-phase",
+                "--project-id",
+                "${input:rndProjectId}",
+                "--to-phase",
+                "${input:rndToPhase}",
+                "--operator",
+                "${input:rndOperator}",
+                "--co-operator",
+                "${input:rndCoOperator}",
+                "--evidence",
+                "${input:rndEvidenceJson}"
+            ],
+            "presentation": {"reveal": "always", "panel": "shared"},
+            "problemMatcher": []
+        },
+        {
+            "label": "R&D: Parse Strategy → Governance/RND/strategy_projects.json",
+            "type": "shell",
+            "command": "python",
+            "args": [
+                "-m",
+                "pentad_rnd.cli",
+                "parse-strategy",
+                "--strategy",
+                "${workspaceFolder}/docs/strategic_rnd_recommendations.md",
+                "--out",
+                "${workspaceFolder}/Governance/RND/strategy_projects.json"
+            ],
+            "presentation": {"reveal": "always", "panel": "shared"},
+            "problemMatcher": []
+        },
+        {
+            "label": "R&D: Credits Allocate",
+            "type": "shell",
+            "command": "python",
+            "args": [
+                "-m",
+                "pentad_rnd.cli",
+                "credits-allocate",
+                "--project-id",
+                "${input:rndProjectId}",
+                "--phase",
+                "${input:rndCreditsPhase}",
+                "--credits",
+                "${input:rndCredits}",
+                "--justification",
+                "${input:rndCreditsJustification}"
+            ],
+            "presentation": {"reveal": "always", "panel": "shared"},
+            "problemMatcher": []
+        },
+        {
+            "label": "R&D: Credits Report",
+            "type": "shell",
+            "command": "python",
+            "args": [
+                "-m",
+                "pentad_rnd.cli",
+                "credits-report"
+            ],
+            "presentation": {"reveal": "always", "panel": "shared"},
+            "problemMatcher": []
+        }
+    ],
   "inputs": [
     {
       "id": "commitMessage",
@@ -1628,11 +2436,175 @@
       "description": "Video URL or file path to transcribe",
       "default": "https://open.substack.com/..."
     },
+        {
+            "id": "evidenceUnc",
+            "type": "promptString",
+            "description": "Evidence share UNC path (e.g., \\\\192.168.4.78\\Sovereign)",
+            "default": "\\\\192.168.4.78\\Sovereign"
+        },
+        {
+            "id": "evidenceDrive",
+            "type": "promptString",
+            "description": "Drive letter to map evidence share to (single letter)",
+            "default": "S"
+        },
+        {
+            "id": "evidenceRoot",
+            "type": "promptString",
+            "description": "Evidence root path to baseline (e.g., S:\\)",
+            "default": "S:\\"
+        },
+        {
+            "id": "evidenceMaxFiles",
+            "type": "promptString",
+            "description": "Max files to hash for baseline (safety cap)",
+            "default": "5000"
+        },
+        {
+            "id": "evidencePublishNodeId",
+            "type": "promptString",
+            "description": "NodeId to publish baseline under (baselines/<NodeId>/...)",
+            "default": "PC1"
+        },
+        {
+            "id": "evidenceBaselineA",
+            "type": "promptString",
+            "description": "Baseline A JSON path (validation/evidence_baseline/...)",
+            "default": ""
+        },
+        {
+            "id": "evidenceBaselineB",
+            "type": "promptString",
+            "description": "Baseline B JSON path (validation/evidence_baseline/...)",
+            "default": ""
+        },
+        {
+            "id": "evidenceBaselinesSubdir",
+            "type": "promptString",
+            "description": "Subdir under evidence share where baselines are published (baselines/<NodeId>/...)",
+            "default": "baselines"
+        },
+        {
+            "id": "evidenceNodeIds",
+            "type": "promptString",
+            "description": "Node ids to check for agreement (comma/space separated)",
+            "default": "PC1 PC2 PC3 PC4"
+        },
     {
       "id": "videoList",
       "type": "promptString",
       "description": "Video URLs or file paths (comma/semicolon/newline separated)",
-      "default": "https://open.substack.com/..."
-    }
+            "default": "https://open.substack.com/..."
+        },
+        {
+            "id": "auditNodeId",
+            "type": "promptString",
+            "description": "NodeId used for fleet audit filenames (e.g., PC1)",
+            "default": "PC1"
+        },
+        {
+            "id": "capIntervalSec",
+            "type": "promptString",
+            "description": "Interval seconds between capability actions",
+            "default": "30"
+        },
+        {
+            "id": "capManifestStamp",
+            "type": "promptString",
+            "description": "Optional manifest stamp for Seal (e.g., 20260203T023500Z). Leave blank for auto UTC time.",
+            "default": ""
+        },
+        {
+            "id": "opsSleepBetweenCyclesSec",
+            "type": "promptString",
+            "description": "Seconds to sleep between 24x7 cycles",
+            "default": "60"
+        },
+        {
+            "id": "jetBrainsProjectPath",
+            "type": "promptString",
+            "description": "Optional: JetBrains project root to touch (leave blank to disable)",
+            "default": ""
+        },
+        {
+            "id": "gitSyncExtraRoot",
+            "type": "promptString",
+            "description": "Optional: extra root folder to scan for git repos (leave blank to skip)",
+            "default": ""
+        },
+        {
+            "id": "gitSyncIntervalSec",
+            "type": "promptString",
+            "description": "Seconds between git sync cycles (all repos)",
+            "default": "120"
+        },
+        {
+            "id": "rndTitle",
+            "type": "promptString",
+            "description": "R&D project title",
+            "default": "R&D: "
+        },
+        {
+            "id": "rndDescription",
+            "type": "promptString",
+            "description": "R&D project description",
+            "default": ""
+        },
+        {
+            "id": "rndCategory",
+            "type": "promptString",
+            "description": "R&D project category",
+            "default": "infrastructure"
+        },
+        {
+            "id": "rndProjectId",
+            "type": "promptString",
+            "description": "R&D project_id",
+            "default": ""
+        },
+        {
+            "id": "rndToPhase",
+            "type": "pickString",
+            "description": "Advance to phase",
+            "options": ["research", "design", "implementation", "verification"],
+            "default": "design"
+        },
+        {
+            "id": "rndOperator",
+            "type": "promptString",
+            "description": "Operator id (attester)",
+            "default": "OP1"
+        },
+        {
+            "id": "rndCoOperator",
+            "type": "promptString",
+            "description": "Co-operator id (required for design/verification; leave blank otherwise)",
+            "default": ""
+        },
+        {
+            "id": "rndEvidenceJson",
+            "type": "promptString",
+            "description": "Evidence JSON (string or path to JSON file)",
+            "default": "{\"documentation_attested\":true,\"external_dependencies\":[],\"isolation_attested\":false,\"data_classification\":\"public\",\"sovereignty_attested\":true,\"safety_bypass\":false}"
+        },
+        {
+            "id": "rndCreditsPhase",
+            "type": "pickString",
+            "description": "Credits phase",
+            "options": ["research", "design", "implementation", "verification", "documentation", "contingency"],
+            "default": "research"
+        },
+        {
+            "id": "rndCredits",
+            "type": "promptString",
+            "description": "Credits to allocate",
+            "default": "10"
+        },
+        {
+            "id": "rndCreditsJustification",
+            "type": "promptString",
+            "description": "Credits justification",
+            "default": "initial research"
+                }
   ]
 }
