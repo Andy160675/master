@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from txtai.embeddings import Embeddings
 from llama_cpp import Llama
@@ -8,6 +9,24 @@ INDEX_PATH = os.getenv("ELITE_INDEX", r"C:\EliteTruthEngine\elite-truth-index")
 MODEL_PATH = os.getenv("ELITE_MODEL", r"C:\EliteTruthEngine\models\llama-3.1-8b-q8.gguf")
 
 app = FastAPI()
+
+# Distributed deployment support (Electron/React UI may run on a different host).
+# Configure via TRUTH_ENGINE_CORS_ORIGINS:
+#   - "*" (default) allows all origins
+#   - or a comma-separated list of allowed origins, e.g. "http://localhost:5173,http://192.168.4.114:5173"
+cors_origins_raw = os.getenv("TRUTH_ENGINE_CORS_ORIGINS", "*").strip()
+if cors_origins_raw == "*":
+    allow_origins = ["*"]
+else:
+    allow_origins = [o.strip() for o in cors_origins_raw.split(",") if o.strip()]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=allow_origins,
+    allow_credentials=False,
+    allow_methods=["*"] ,
+    allow_headers=["*"] ,
+)
 embeddings = Embeddings()
 embeddings.load(INDEX_PATH)
 

@@ -1,3 +1,4 @@
 python-dotenv
 dataclasses-json
 watchdog
+openai>=1.0.0

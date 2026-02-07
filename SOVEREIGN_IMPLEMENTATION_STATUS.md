@@ -1,4 +1,4 @@
-# Sovereign Build – Implementation Status (PrecisePointway/master)
+# Sovereign Build ï¿½ Implementation Status (PrecisePointway/master)
 
 _Last updated: 2025-11-21_  
 _Repo: `C:\Users\andyj\source\repos\PrecisePointway\master` (branch `main`)_
@@ -62,11 +62,16 @@ _Repo: `C:\Users\andyj\source\repos\PrecisePointway\master` (branch `main`)_
 
 - **Network / fleet scripts**
   - `FleetBootstrap.ps1`
+  - `Queue-Command.ps1`
+  - `FleetPullAgent.ps1`
   - `Review-VSCode-Fleet.ps1`
   - `Discovery-*.ps1`
   - `Bootstrap-All.ps1`
   - `Healthcheck.ps1`
   - `Ledger-Audit.ps1`
+
+- **Production-style deployment artifacts (partial)**
+  - `services/sovereign_dns/docker-compose.yml` (Unbound + audit sidecar)
 
 - **Git hooks**
   - `.git/hooks/pre-commit` (supports integrity flow)
@@ -90,7 +95,7 @@ The following items are **planned or partially scaffolded**, but as of this stat
   - Router/topology Python files exist, but no deployment manifests, service orchestration, or live endpoints.
 
 - **Remote fleet command queue**
-  - References to `Queue-Command.ps1`, but no concrete implementation in opened files.
+  - Implemented: `Queue-Command.ps1` + `FleetPullAgent.ps1` + `FleetBootstrap.ps1`.
 
 - **Behavioral OS / Boardroom-13 full runtime**
   - `Start-BehavioralOS-Host.ps1` referenced in tasks, but file not found; no execution logs.
@@ -111,7 +116,7 @@ The following items are **planned or partially scaffolded**, but as of this stat
   - No code implementing real payment, franchise, or donation flows.
 
 - **Production deployment artifacts**
-  - No `Dockerfile`, Kubernetes manifests, or `systemd` units for services.
+  - Some Docker Compose artifacts exist (e.g., `services/sovereign_dns/docker-compose.yml`), but no Kubernetes/systemd deployment set.
 
 - **Continuous assurance of trained models**
   - Workflows exist for ledger integrity, not for model behaviour / regression.

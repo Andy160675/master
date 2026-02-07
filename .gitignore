@@ -20,11 +20,25 @@ logs/
 reports/**
 !reports/.gitkeep
 
+# Secure cloud working area (skeleton tracked; contents ignored)
+secure_cloud/**
+!secure_cloud/README.md
+!secure_cloud/**/.gitkeep
+!secure_cloud/99_admin/mapping.md
+
 # Python
 __pycache__/
 *.pyc
 .venv/
+env/
 .env
+
+# Runtime artifacts (never commit)
+Data/
+validation/
+
+# Sovereign recursion artifacts (never commit)
+sovereign_recursion/artifacts/
 
 # VS Code
 # .vscode/ (now versioned)

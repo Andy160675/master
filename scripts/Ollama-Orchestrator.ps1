@@ -3,7 +3,7 @@ param(
   [string]$Query,
   [string]$Prompt,
   [ValidateSet('auto','status','verifier','enforcer','debug')][string]$Mode='auto',
-  [string]$Endpoint = "http://localhost:11434",
+  [string]$Endpoint = "",
   [string]$RouterModel = "llama3",
   [string]$VerifierModel = "llama3",
   [int]$MaxTokens = 512,
@@ -13,6 +13,13 @@ param(
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
+
+if ([string]::IsNullOrWhiteSpace($Endpoint)) {
+  $Endpoint = $env:OLLAMA_HOST
+}
+if ([string]::IsNullOrWhiteSpace($Endpoint)) {
+  $Endpoint = 'http://localhost:11434'
+}
 function Write-Info($m){ Write-Host "[INFO] $m" -ForegroundColor Cyan }
 function Write-Warn($m){ Write-Host "[WARN] $m" -ForegroundColor Yellow }
 function Write-Err ($m){ Write-Host "[FAIL] $m" -ForegroundColor Red }

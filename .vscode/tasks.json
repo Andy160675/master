@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/microsoft/vscode/master/extensions/tasks/schemas/v3.0.0/tasks.schema.json",
+    
   "version": "2.0.0",
   "tasks": [
     {
@@ -352,6 +352,32 @@
             "Bypass",
             "-File",
             "${workspaceFolder}/scripts/Sync-Fleet.ps1",
+            "-Targets",
+            "${input:remoteTargets}",
+            "-Confirm"
+        ],
+        "group": "build",
+        "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "focus": false,
+            "panel": "shared"
+        },
+        "problemMatcher": []
+    },
+    {
+        "label": "Fleet: Sync All PCs + NAS (Prompt Cred)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/Sync-Fleet.ps1",
+            "-Targets",
+            "${input:remoteTargets}",
+            "-PromptForCredential",
             "-Confirm"
         ],
         "group": "build",
@@ -1385,6 +1411,135 @@
         "presentation": {"reveal": "always", "panel": "new"}
     },
     {
+        "label": "Fleet: Fix Docker (Queue, Viewer)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/ops/Fleet-FixDocker-Queue.ps1",
+            "-Targets",
+            "${input:remoteTargets}",
+            "-QueueRoot",
+            "${input:fleetQueueRoot}",
+            "-WaitSeconds",
+            "${input:dockerFixWaitSec}"
+        ],
+        "problemMatcher": [],
+        "presentation": {"reveal": "always", "panel": "new"}
+    },
+    {
+        "label": "Fleet: Fix Docker (Queue, Viewer, Prompt Cred)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/ops/Fleet-FixDocker-Queue.ps1",
+            "-Targets",
+            "${input:remoteTargets}",
+            "-QueueRoot",
+            "${input:fleetQueueRoot}",
+            "-WaitSeconds",
+            "${input:dockerFixWaitSec}",
+            "-PromptForCredential"
+        ],
+        "problemMatcher": [],
+        "presentation": {"reveal": "always", "panel": "new"}
+    },
+    {
+        "label": "Fleet: Fix Docker (Queue, Gate)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/ops/Fleet-FixDocker-Queue.ps1",
+            "-Targets",
+            "${input:remoteTargets}",
+            "-QueueRoot",
+            "${input:fleetQueueRoot}",
+            "-WaitSeconds",
+            "${input:dockerFixWaitSec}",
+            "-Gate"
+        ],
+        "problemMatcher": [],
+        "presentation": {"reveal": "always", "panel": "new"}
+    },
+    {
+        "label": "Fleet: Fix Docker (Queue, Gate, Prompt Cred)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/ops/Fleet-FixDocker-Queue.ps1",
+            "-Targets",
+            "${input:remoteTargets}",
+            "-QueueRoot",
+            "${input:fleetQueueRoot}",
+            "-WaitSeconds",
+            "${input:dockerFixWaitSec}",
+            "-PromptForCredential",
+            "-Gate"
+        ],
+        "problemMatcher": [],
+        "presentation": {"reveal": "always", "panel": "new"}
+    },
+    {
+        "label": "Ops: Fix Docker on NAS (SSH, Viewer)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/ops/Fix-DockerSSH.ps1",
+            "-Host",
+            "${input:dnsNasHost}",
+            "-User",
+            "${input:dnsNasUser}",
+            "-IdentityFile",
+            "${input:dnsNasIdentityFile}",
+            "-Port",
+            "${input:dnsNasSshPort}"
+        ],
+        "problemMatcher": [],
+        "presentation": {"reveal": "always", "panel": "new"}
+    },
+    {
+        "label": "Ops: Fix Docker on NAS (SSH, Gate)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/ops/Fix-DockerSSH.ps1",
+            "-Host",
+            "${input:dnsNasHost}",
+            "-User",
+            "${input:dnsNasUser}",
+            "-IdentityFile",
+            "${input:dnsNasIdentityFile}",
+            "-Port",
+            "${input:dnsNasSshPort}",
+            "-Gate"
+        ],
+        "problemMatcher": [],
+        "presentation": {"reveal": "always", "panel": "new"}
+    },
+    {
         "label": "Health: Pentad Resilience (Viewer)",
         "type": "shell",
         "command": "powershell",
@@ -1529,6 +1684,23 @@
             "-File",
             "${workspaceFolder}/scripts/ops/Check-Secrets.ps1",
             "-FailOnFindings"
+        ],
+        "problemMatcher": [],
+        "presentation": {
+            "reveal": "always",
+            "panel": "new"
+        }
+    },
+    {
+        "label": "Ops: Verify Connections (Truth Engine + Ollama)",
+        "type": "shell",
+        "command": "powershell",
+        "args": [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "${workspaceFolder}/scripts/verify-connections.ps1"
         ],
         "problemMatcher": [],
         "presentation": {
@@ -1689,9 +1861,10 @@
     {
         "label": "Empathy: Deterministic",
         "type": "shell",
-        "command": "python",
+        "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
         "args": [
-            "${workspaceFolder}/agi/tests/deterministic/test_cases.py"
+            "-m",
+            "agi.tests.deterministic.test_cases"
         ],
         "group": "test",
         "presentation": {
@@ -1702,9 +1875,10 @@
     {
         "label": "Empathy: Redteam Monte Carlo",
         "type": "shell",
-        "command": "python",
+        "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
         "args": [
-            "${workspaceFolder}/agi/tests/monte_carlo/run_redteam.py"
+            "-m",
+            "agi.tests.monte_carlo.run_redteam"
         ],
         "group": "test",
         "presentation": {
@@ -1715,9 +1889,10 @@
     {
         "label": "Empathy: Fuzz",
         "type": "shell",
-        "command": "python",
+        "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
         "args": [
-            "${workspaceFolder}/agi/tests/fuzz/run_dep_fuzz.py"
+            "-m",
+            "agi.tests.fuzz.run_dep_fuzz"
         ],
         "group": "test",
         "presentation": {
@@ -2062,7 +2237,7 @@
         "label": "Blade: Start Truth Engine API",
         "type": "shell",
         "command": "powershell",
-        "args": ["-NoProfile","-ExecutionPolicy","Bypass","-Command","cd \"${workspaceFolder}/EliteTruthEngine\"; uvicorn server:app --host 127.0.0.1 --port 8000"],
+        "args": ["-NoProfile","-ExecutionPolicy","Bypass","-Command","cd \"${workspaceFolder}/EliteTruthEngine\"; uvicorn server:app --host 0.0.0.0 --port 8000"],
         "group": "build",
         "presentation": {"echo": true, "reveal": "always", "panel": "shared"},
         "problemMatcher": []
@@ -2521,6 +2696,326 @@
             "problemMatcher": []
         },
         {
+            "label": "Ops: Continuous Controller (Viewer)",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "${workspaceFolder}/scripts/ops/Sovereign-Continuous-Controller.ps1",
+                "-CycleAgents",
+                "${input:continuousCycleAgents}",
+                "-RatePerSecond",
+                "${input:continuousRatePerSecond}",
+                "-IncreaseRunTimePercent",
+                "${input:continuousIncreaseRunTimePercent}",
+                "-MaxCycles",
+                "${input:continuousMaxCycles}"
+            ],
+            "presentation": {"reveal": "always", "panel": "dedicated", "clear": true},
+            "problemMatcher": []
+        },
+        {
+            "label": "Ops: Continuous Controller (Run, Prompt NAS Cred)",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "${workspaceFolder}/scripts/ops/Sovereign-Continuous-Controller.ps1",
+                "-CycleAgents",
+                "${input:continuousCycleAgents}",
+                "-RatePerSecond",
+                "${input:continuousRatePerSecond}",
+                "-IncreaseRunTimePercent",
+                "${input:continuousIncreaseRunTimePercent}",
+                "-MaxCycles",
+                "${input:continuousMaxCycles}",
+                "-PromptNasCredential",
+                "-ConfirmInfra",
+                "-Confirm",
+                "-Gate"
+            ],
+            "presentation": {"reveal": "always", "panel": "dedicated", "clear": true},
+            "problemMatcher": []
+        },
+        {
+            "label": "Ops: Continuous Controller (Live 24x7, +10% runtime, Prompt NAS Cred)",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "${workspaceFolder}/scripts/ops/Sovereign-Continuous-Controller.ps1",
+                "-CycleAgents",
+                "${input:continuousCycleAgents}",
+                "-RatePerSecond",
+                "${input:continuousRatePerSecond}",
+                "-IncreaseRunTimePercent",
+                "10",
+                "-MaxCycles",
+                "0",
+                "-PromptNasCredential",
+                "-ConfirmInfra",
+                "-Confirm",
+                "-Gate"
+            ],
+            "presentation": {"reveal": "always", "panel": "dedicated", "clear": true},
+            "problemMatcher": []
+        },
+        {
+            "label": "Ops: Continuous Controller (Probe 1 cycle, Gated, Append-only)",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "${workspaceFolder}/scripts/ops/Sovereign-Continuous-Controller.ps1",
+                "-CycleAgents",
+                "10",
+                "-RatePerSecond",
+                "100",
+                "-MaxCycles",
+                "1",
+                "-KeepCycles",
+                "0",
+                "-Confirm",
+                "-Gate"
+            ],
+            "presentation": {"reveal": "always", "panel": "dedicated", "clear": true},
+            "problemMatcher": []
+        },
+        {
+            "label": "Ops: Continuous Controller (Campaign 10k, Gated, Append-only, +10% agents)",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "${workspaceFolder}/scripts/ops/Sovereign-Continuous-Controller.ps1",
+                "-CycleAgents",
+                "1100000",
+                "-RatePerSecond",
+                "15",
+                "-MaxCycles",
+                "10000",
+                "-KeepCycles",
+                "0",
+                "-Confirm",
+                "-Gate"
+            ],
+            "presentation": {"reveal": "always", "panel": "dedicated", "clear": true},
+            "problemMatcher": []
+        },
+        {
+            "label": "Sovereign Recursion: Run (Write Evidence)",
+            "type": "shell",
+            "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+            "args": [
+                "-m",
+                "sovereign_recursion",
+                "--rating",
+                "${input:sovereignRecursionRating}",
+                "--nas-host",
+                "${input:sovereignRecursionNasHost}"
+            ],
+            "presentation": {"reveal": "always", "panel": "dedicated", "clear": true},
+            "problemMatcher": []
+        },
+        {
+            "label": "Sovereign Recursion: Run (Gated)",
+            "type": "shell",
+            "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+            "args": [
+                "-m",
+                "sovereign_recursion",
+                "--rating",
+                "${input:sovereignRecursionRating}",
+                "--nas-host",
+                "${input:sovereignRecursionNasHost}",
+                "--gated"
+            ],
+            "presentation": {"reveal": "always", "panel": "dedicated", "clear": true},
+            "problemMatcher": []
+        },
+        {
+            "label": "Sovereign Recursion: Ledger Verify",
+            "type": "shell",
+            "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+            "args": [
+                "-m",
+                "sovereign_recursion.ledger",
+                "verify"
+            ],
+            "presentation": {"reveal": "always", "panel": "shared"},
+            "problemMatcher": []
+        },
+        {
+            "label": "Sovereign Recursion: Ledger Tail (20)",
+            "type": "shell",
+            "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+            "args": [
+                "-m",
+                "sovereign_recursion.ledger",
+                "tail",
+                "-n",
+                "20"
+            ],
+            "presentation": {"reveal": "always", "panel": "shared"},
+            "problemMatcher": []
+        },
+        {
+            "label": "Sovereign Recursion: Generate Dashboard",
+            "type": "shell",
+            "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+            "args": [
+                "-m",
+                "sovereign_recursion.dashboard",
+                "--ledger",
+                "${workspaceFolder}/validation/sovereign_recursion/ledger.jsonl",
+                "--output",
+                "${workspaceFolder}/validation/sovereign_recursion/sovereignty_dashboard.html"
+            ],
+            "presentation": {"reveal": "always", "panel": "shared", "clear": true},
+            "problemMatcher": []
+        },
+        {
+            "label": "Sovereign Recursion: Schedule Hourly (Admin)",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "${workspaceFolder}/scripts/schedule_recursion.ps1",
+                "-Gated",
+                "-Rating",
+                "${input:sovereignRecursionRating}",
+                "-NasHost",
+                "${input:sovereignRecursionNasHost}"
+            ],
+            "presentation": {"reveal": "always", "panel": "shared", "clear": true},
+            "problemMatcher": []
+        },
+        {
+            "label": "Sovereign Recursion: Integration Tests (unittest)",
+            "type": "shell",
+            "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+            "args": [
+                "-m",
+                "unittest",
+                "-v",
+                "tests.test_sovereign_recursion_integration"
+            ],
+            "presentation": {"reveal": "always", "panel": "shared", "clear": true},
+            "problemMatcher": []
+        },
+        {
+            "label": "Sovereign Loop: Run Once (Gated, Offline, Dashboard)",
+            "type": "shell",
+            "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+            "args": [
+                "-m",
+                "sovereign_recursion.loop_runner",
+                "--iterations",
+                "1",
+                "--max-retries",
+                "${input:sovereignLoopMaxRetries}",
+                "--interval-seconds",
+                "0",
+                "--policy",
+                "${workspaceFolder}/sovereign_recursion/policy.default.json",
+                "--rating",
+                "${input:sovereignRecursionRating}",
+                "--nas-host",
+                "${input:sovereignRecursionNasHost}",
+                "--offline",
+                "--gated",
+                "--dashboard",
+                "--emit-alerts"
+            ],
+            "presentation": {"reveal": "always", "panel": "dedicated", "clear": true},
+            "problemMatcher": []
+        },
+        {
+            "label": "Sovereign Loop: Run 5 Iterations (Gated)",
+            "type": "shell",
+            "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+            "args": [
+                "-m",
+                "sovereign_recursion.loop_runner",
+                "--iterations",
+                "5",
+                "--max-retries",
+                "${input:sovereignLoopMaxRetries}",
+                "--interval-seconds",
+                "${input:sovereignLoopIntervalSeconds}",
+                "--rating",
+                "${input:sovereignRecursionRating}",
+                "--nas-host",
+                "${input:sovereignRecursionNasHost}",
+                "--gated",
+                "--dashboard"
+            ],
+            "presentation": {"reveal": "always", "panel": "dedicated", "clear": true},
+            "problemMatcher": []
+        },
+        {
+            "label": "Sovereign PDCA: Campaign 10x15 (Gated, Offline, Keep Going)",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "${workspaceFolder}/scripts/Run-PDCA-Campaign.ps1",
+                "-Batches",
+                "15",
+                "-IterationsPerBatch",
+                "10",
+                "-Offline",
+                "-Gated",
+                "-EmitAlerts",
+                "-ContinueOnFail"
+            ],
+            "presentation": {"reveal": "always", "panel": "dedicated", "clear": true},
+            "problemMatcher": []
+        },
+        {
+            "label": "Sovereign PDCA: Campaign 10x15 (Gated, Live, Keep Going)",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "${workspaceFolder}/scripts/Run-PDCA-Campaign.ps1",
+                "-Batches",
+                "15",
+                "-IterationsPerBatch",
+                "10",
+                "-Offline:$false",
+                "-Gated",
+                "-EmitAlerts",
+                "-ContinueOnFail"
+            ],
+            "presentation": {"reveal": "always", "panel": "dedicated", "clear": true},
+            "problemMatcher": []
+        },
+        {
             "label": "Ops: Git Sync Loop (All Repos, Safe)",
             "type": "shell",
             "command": "powershell",
@@ -2668,8 +3163,56 @@
       "id": "targetPCs",
       "type": "promptString",
       "description": "Target PC names (comma-separated, e.g., pc-1,pc-2,pc-3)",
-      "default": "pc-1,pc-2,pc-3"
-    },
+            "default": "pc-1,pc-2,pc-3"
+        },
+        {
+            "id": "continuousCycleAgents",
+            "type": "promptString",
+            "description": "Continuous controller: agents per cycle",
+            "default": "100"
+        },
+        {
+            "id": "continuousRatePerSecond",
+            "type": "promptString",
+            "description": "Continuous controller: simulated agents per second",
+            "default": "50"
+        },
+        {
+            "id": "continuousIncreaseRunTimePercent",
+            "type": "promptString",
+            "description": "Continuous controller: increase cycle runtime by percent (slows effective rate)",
+            "default": "10"
+        },
+        {
+            "id": "continuousMaxCycles",
+            "type": "promptString",
+            "description": "Continuous controller: max cycles (0 = infinite)",
+            "default": "1"
+        },
+        {
+            "id": "sovereignRecursionRating",
+            "type": "promptString",
+            "description": "Sovereign Recursion: cognitive self-rating 1-5",
+            "default": "4"
+        },
+        {
+            "id": "sovereignRecursionNasHost",
+            "type": "promptString",
+            "description": "Sovereign Recursion: NAS host/ip (blank allowed)",
+            "default": "192.168.4.114"
+        },
+        {
+            "id": "sovereignLoopIntervalSeconds",
+            "type": "promptString",
+            "description": "Sovereign Loop: seconds between iterations",
+            "default": "60"
+        },
+        {
+            "id": "sovereignLoopMaxRetries",
+            "type": "promptString",
+            "description": "Sovereign Loop: max retries per iteration on gate fail",
+            "default": "1"
+        },
     {
       "id": "searchQuery",
       "type": "promptString",
@@ -2849,6 +3392,18 @@
             "type": "promptString",
             "description": "DNS record type for client test",
             "default": "A"
+        },
+        {
+            "id": "fleetQueueRoot",
+            "type": "promptString",
+            "description": "Fleet Queue UNC root for Windows nodes (\\\\NAS\\ops\\Queue)",
+            "default": "\\\\dxp4800plus-67ba\\ops\\Queue"
+        },
+        {
+            "id": "dockerFixWaitSec",
+            "type": "promptString",
+            "description": "Seconds to wait for each node to produce a .done receipt (0 disables waiting)",
+            "default": "120"
         },
     {
       "id": "videoList",

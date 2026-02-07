@@ -3,7 +3,7 @@ $results = @()
 # Check git status
 try {
   $gitStatus = git status --short 2>$null
-  $results += [PSCustomObject]@{Check='GitDirty'; Value=([string]::IsNullOrWhiteSpace($gitStatus) -not); Detail=$gitStatus }
+  $results += [PSCustomObject]@{Check='GitDirty'; Value=(-not [string]::IsNullOrWhiteSpace($gitStatus)); Detail=$gitStatus }
 } catch { $results += [PSCustomObject]@{Check='GitStatusError'; Value=$false; Detail=$_.Exception.Message } }
 # Check python availability
 try { python --version 2>&1 | Write-Host -ForegroundColor Gray } catch { Write-Warning 'Python missing' }

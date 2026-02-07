@@ -17,7 +17,7 @@
 </head>
 <body>
   <header>
-    <strong>Blade Boardroom – Phase 3 Shell</strong> <span id="status"></span>
+    <strong>Blade Boardroom ï¿½ Phase 3 Shell</strong> <span id="status"></span>
   </header>
   <div id="panels">
     <div class="panel" id="left">
@@ -39,6 +39,14 @@
     </div>
   </div>
 <script>
+async function refreshStatus(){
+  try {
+    const cfg = await window.BladeAPI.getConnectionConfig();
+    document.getElementById('status').textContent = ` truth=${cfg.truthEngineUrl} | ollama=${cfg.ollamaHost}`;
+  } catch {
+    document.getElementById('status').textContent = '';
+  }
+}
 async function refreshAgency(){
   const vec = await window.BladeAPI.evalAgency({});
   document.getElementById('vector').textContent = JSON.stringify(vec,null,2);
@@ -69,6 +77,7 @@ async function runCommand(){
   document.getElementById('cmdOut').textContent = 'Unknown command';
 }
 refreshAgency();
+refreshStatus();
 </script>
 </body>
 </html>

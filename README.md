@@ -6,6 +6,12 @@ Cryptographic ledger integrity is continuously verified (hash + rogue file check
 # master
 Project management file
 
+## Canonical docs (2026-02-06)
+- Architecture: `CSS-ARCH-DOC-001.md`
+- Governance: `CSS-GOV-DOC-002.md`
+- Constitution (core record): `constitution/CORE_CONSTITUTION.md`
+- Secure cloud skeleton: `secure_cloud/README.md`
+
 ## Quickstart (Clone ? Verify ? Portal ? Evidence PDF)
 ```bash
 # 1. Clone
@@ -127,3 +133,30 @@ Artifacts are written under `logs/tamper/` and can be extended with signature se
 - Schema Validation: artifacts checked against evidence schema; status embedded in summary.
 
 Contact: security@sovereign.example
+
+## Connection endpoints (Distributed / Sovereign Process Isolation)
+
+Hardcoded `localhost` dependencies are avoided by using environment variables for service endpoints.
+
+**Environment variables** (see [.env.example](.env.example)):
+- `TRUTH_ENGINE_URL` (default `http://localhost:8000`)
+- `TRUTH_ENGINE_CORS_ORIGINS` (default `*`; set to a comma-separated list to restrict)
+- `OLLAMA_HOST` (default `http://localhost:11434`)
+- `OLLAMA_BASE_URL` (optional; defaults to `${OLLAMA_HOST}/v1` when used)
+
+**Connectivity verification**:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\verify-connections.ps1
+```
+
+Example (NAS/LAN):
+
+```powershell
+$env:TRUTH_ENGINE_URL = 'http://192.168.4.114:8000'
+$env:OLLAMA_HOST = 'http://192.168.4.114:11434'
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\verify-connections.ps1
+```
+
+**Truth Engine bind address**:
+The VS Code task "Blade: Start Truth Engine API" is set up to bind for distributed access. If you need to restrict exposure, use OS firewall rules or run uvicorn with a loopback-only `--host`.

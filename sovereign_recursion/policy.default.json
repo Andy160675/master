@@ -1,0 +1,7 @@
+{
+  "hard_layers_on_degraded": ["meta", "codex", "digital"],
+  "hard_statuses": ["CORRUPTED", "OVERLOADED"],
+  "soft_statuses": ["DEGRADED"],
+  "treat_missing_report_as": "HARD_FAIL",
+  "treat_missing_layers_as": "HARD_FAIL"
+}
