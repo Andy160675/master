@@ -5,7 +5,8 @@ from pathlib import Path
 
 def load_ledger(path: Path):
     try:
-        text = path.read_text(encoding="utf-8")
+        # PowerShell Out-File -Encoding utf8 writes UTF-8 with BOM; utf-8-sig strips it.
+        text = path.read_text(encoding="utf-8-sig")
         return json.loads(text)
     except Exception as e:
         print(f"[ERROR] Failed to load ledger file: {e}", file=sys.stderr)
