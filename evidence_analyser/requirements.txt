@@ -1,0 +1,9 @@
+gradio>=4.0
+psutil
+python-docx
+PyPDF2
+pdfplumber
+beautifulsoup4
+python-dateutil
+sqlcipher3-binary
+spacy
