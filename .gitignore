@@ -15,3 +15,6 @@ __pycache__/
 # VS Code
 # .vscode/ (now versioned)
 .history/
+
+# Claude Code
+.claude/
