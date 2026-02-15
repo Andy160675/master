@@ -250,5 +250,52 @@ Watchtower scrutiny, slower Paperclip cadence). Does not add new powers.
 
 ---
 
+---
+
+## 11. Implementation Roadmap (19 Steps)
+
+Derived from codebase analysis and architecture review. Categorised by priority.
+
+### Critical Needs
+
+| # | Step | Location | Status |
+|---|------|----------|--------|
+| 1 | Formalise Paperclip behaviour — context preservation, non-authoritative nudges, no escalation | `agi/core/assistant_channel.py` | Not started |
+| 2 | Expand Watchtower drift detection — beyond 2-file SHA256, broader scope, human-readable reports | `agi/core/drift_detector.py` + `src/recorder/` | Not started |
+| 3 | Integrate HARLS as measurement substrate — compute Harls Rate and coherence from recorded events | New `harls/` module | Not started |
+| 4 | Define and document Sentinel policy rules — explicit `policies/` directory, versioned, auditable | New `policies/` + `agi/core/mcp_gatekeeper.py` | Not started |
+| 5 | Ensure all governed actions are recorded — audit for gaps in ledger coverage | `src/recorder/` + all action-triggering modules | Not started |
+| 6 | Implement basic human oversight interface — CLI/web dashboard for Sentinel blocks and Watchtower alerts | New `oversight/` module | Not started |
+
+### Nice to Have
+
+| # | Step | Location |
+|---|------|----------|
+| 7 | Paperclip proactive reminders (memory + scheduling) | `agi/core/assistant_channel.py` |
+| 8 | Watchtower trend visualisation (graphs, HTML export) | `agi/core/drift_detector.py` + formatter |
+| 9 | Sentinel policy testing framework (historical/synthetic data) | `tests/test_policies.py` |
+| 10 | Multi-user support (separate contexts, permissions) | Cross-cutting |
+| 11 | External notifications (Slack, email for blocks/alerts) | New notification module |
+| 12 | User-configurable Paperclip verbosity | `agi/core/assistant_channel.py` + config |
+
+### Bespoke (Long-Term Differentiators)
+
+| # | Step | Location |
+|---|------|----------|
+| 13 | Sovereign Seal attestation — cryptographic conformance proof | New `seal/` + `agi/core/receipt.py` |
+| 14 | HARLS-driven Sentinel thresholds (block if C < threshold) | `agi/core/mcp_gatekeeper.py` + `harls/` |
+| 15 | Paperclip alignment queries ("Is this aligned with past patterns?") | `agi/core/assistant_channel.py` + `harls/` |
+| 16 | Watchtower drift narratives (natural-language summaries) | `agi/core/drift_detector.py` + LLM |
+| 17 | Enforce separation of duties (L4) in code — runtime checks | Cross-cutting (import hooks, interfaces) |
+| 18 | Governance-as-Code DSL for policies | New `policy_lang/` |
+| 19 | Panel Protocol interface for human review panels | New `panel/` |
+
+### Usage Rule
+
+Start with Critical Needs, one at a time, fully committed before moving on.
+Do not add governance concepts unless implemented or explicitly marked as planned.
+
+---
+
 *This file is reference material from a GPT working session. It is not authoritative.
 For grounded architecture, see `ARCHITECTURE.md` and `docs/LAYER_MAP.md`.*
