@@ -44,3 +44,6 @@ sovereign_recursion/artifacts/
 # .vscode/ (now versioned)
 .vscode/sftp.json
 .history/
+
+# Claude Code
+.claude/
