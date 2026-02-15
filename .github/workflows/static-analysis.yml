@@ -23,13 +23,13 @@ jobs:
         run: bash scripts/run-static-analysis.sh
       - name: Upload report artifact
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: cppcheck-report
           path: build/cppcheck_report.xml
       - name: Upload summary
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: cppcheck-summary
           path: build/cppcheck_summary.txt
